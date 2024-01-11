@@ -3,7 +3,10 @@
     <template v-if="posts">
       <h1>{{ slug }}</h1>
       {{ posts.length }} posts
-      <template v-for="post in posts" :key="post._clId">
+      <template
+        v-for="post in posts"
+        :key="post._clId"
+      >
         <div>
           <NuxtLink :to="post.path">
             {{ post.title }}
