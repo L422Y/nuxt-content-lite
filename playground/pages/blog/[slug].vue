@@ -9,17 +9,17 @@
           </NuxtLink>
         </template>
       </div>
-      <ContentLite :doc="post"/>
+      <ContentLiteDoc :item="post"/>
     </template>
     <template v-else>
       <h1>Not Found</h1>
-      <p>Sorry, that product doesn't exist.</p>
+      <p>Sorry, that post doesn't exist.</p>
     </template>
   </div>
 </template>
 <script lang="ts" setup>
 const content = await useContentLite()
-const post = await content.findOne(useRoute().path)
+const post = await content.singleRouteContent()
 </script>
 <style lang="scss" scoped>
 .categories {
@@ -29,17 +29,13 @@ const post = await content.findOne(useRoute().path)
   gap: 0.5rem;
 
   a {
+    font-size: 0.8rem;
     padding: 0.25rem 0.5rem;
     text-decoration: none;
-    color: var(--c1);
-    border-radius: 0.25rem;
     text-transform: uppercase;
-    font-size: 0.8rem;
-    background: #eee;
     color: #333;
-    &:hover {
-      background-color: var(--hc2);
-    }
+    border-radius: 0.25rem;
+    background: #eee;
   }
 }
 </style>
