@@ -17,5 +17,9 @@
   </main>
 </template>
 <script setup>
+const content = await useContentLite({
+    filterable: false,
+    flattenData: true
+})
 </script>
 <style lang="scss" src="~/scss/app.scss" />
