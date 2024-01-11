@@ -3,7 +3,7 @@
     <template v-if="product">
       <h1>{{ product.title }}</h1>
       <h3>${{ product.price }}</h3>
-      <ContentLiteDoc :item="product"/>
+      <ContentLiteDoc :item="product" />
     </template>
     <template v-else>
       <h1>Not Found</h1>
