@@ -1,8 +1,7 @@
 import { addComponentsDir, addImportsDir, addServerHandler, createResolver, defineNuxtModule } from "@nuxt/kit"
-import { type ContentLiteRawItem } from "./runtime/composables/useContentLite"
 import fs from "fs"
 import path from "path"
-import { registerTS } from "@vue/compiler-sfc"
+import type { ContentLiteRawItem } from "~/dist/runtime/types"
 
 export default defineNuxtModule({
     meta: {
@@ -24,8 +23,13 @@ export default defineNuxtModule({
         const contentLiteDir = path.resolve(".", ".cache/content-lite")
         const jsonPath = path.resolve(contentLiteDir, "content-lite.json")
 
-        const baseDir = path.resolve(".", moduleOptions.contentDir)
 
+        await addComponentsDir({
+            path: moduleResolver.resolve("./runtime/components"),
+            global: true,
+        })
+
+        addImportsDir(moduleResolver.resolve("./runtime/composables"))
         addServerHandler({
             route: "/.content-lite/content-lite.json",
             handler: moduleResolver.resolve("./runtime/endpoint.get")
@@ -38,13 +42,17 @@ export default defineNuxtModule({
         //     dir: contentLiteDir,
         //     maxAge: 1,
         // })
-        const populateContent = async (currentPath: string = moduleOptions.contentDir) => {
 
+
+
+        const populateContent = async (currentPath: string = moduleOptions.contentDir, baseDir?: string)=> {
             const path = require("path")
             const matter = require("gray-matter")
 
+            if (!baseDir) {
+                baseDir = path.resolve(".", moduleOptions.contentDir)
+            }
 
-            // recursively walk the content directory and populate the contentData from the markdown files
             const contentDirPath = path.resolve(".", currentPath)
             const contentFiles = fs.readdirSync(contentDirPath)
 
@@ -57,15 +65,19 @@ export default defineNuxtModule({
                 const fileStat = fs.statSync(filePath)
                 if (fileStat.isDirectory()) {
                     // recurse
-                    await populateContent(filePath)
+                    await populateContent(filePath, baseDir)
                 } else if (fileStat.isFile() && file.endsWith(".md")) {
+
                     // parse the file
                     const fileContents = fs.readFileSync(filePath, "utf-8")
+
                     // parse markdown, including front matter
                     const fileData = await getFileData(matter, fileContents)
+
                     if (fileData.data?.status === "draft") {
                         continue
                     }
+
                     const modifiedDate = fileStat.mtime
                     const contentPath = path.relative(baseDir, filePath)
 
@@ -105,22 +117,7 @@ export default defineNuxtModule({
             }
         }
 
-        addImportsDir(moduleResolver.resolve("./runtime/composables"))
-        await addComponentsDir({
-            path: moduleResolver.resolve("./runtime/components"),
-            global: true,
-        })
 
-        await populateContent().then(() => {
-            fs.mkdirSync(path.dirname(jsonPath), {recursive: true})
-            fs.writeFileSync(jsonPath, JSON.stringify([...rawContentData]))
-        })
-
-        nuxt.hook("build:before", () => {
-
-
-            console.log("contentComponents", nuxt.options.nitro.publicAssets)
-        })
 
 
         // Register user global components, yoinked from @nuxt/content :)
@@ -128,6 +125,10 @@ export default defineNuxtModule({
         for (const layer of _layers) {
             const srcDir = layer.config.srcDir
             const globalComponents = moduleResolver.resolve(srcDir, "components/content")
+            const layerContent = moduleResolver.resolve(srcDir, "content")
+
+            await populateContent(layerContent, layerContent)
+
             const dirStat = await fs.promises.stat(globalComponents).catch(() => null)
             if (dirStat && dirStat.isDirectory()) {
                 nuxt.hook("components:dirs", (dirs) => {
@@ -140,6 +141,9 @@ export default defineNuxtModule({
                 })
             }
         }
+
+        fs.mkdirSync(path.dirname(jsonPath), {recursive: true})
+        fs.writeFileSync(jsonPath, JSON.stringify([...rawContentData]))
     }
 })
 
