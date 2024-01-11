@@ -8,11 +8,6 @@ export interface IContentLiteOptions {
      * Whether to flatten the content item data into the parent content item
      */
     flattenData?: boolean
-
-    /**
-     * The content directory to search for content
-     */
-    contentDir?: string
 }
 
 export interface IContentLiteItem {
