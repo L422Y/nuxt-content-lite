@@ -1,7 +1,10 @@
-import MyModule from '../../../src/module'
+import NuxtContentLite from '../../../src/module'
 
 export default defineNuxtConfig({
   modules: [
-    MyModule
-  ]
+    NuxtContentLite
+  ],
+  extends: [
+    "github:L422Y/nuxt-layer-fake-blog",
+  ],
 })
