@@ -1,6 +1,7 @@
 {
   "private": true,
   "name": "nuxt-content-lite-playground",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "nuxi dev",
