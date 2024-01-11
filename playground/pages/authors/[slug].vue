@@ -6,8 +6,14 @@
         <small>{{ author.title }}</small>
       </h1>
       <div class="posts">
-        <template v-for="post in posts" :key="post._clId">
-          <BlogTile :post :showAuthor="false" />
+        <template
+          v-for="post in posts"
+          :key="post._clId"
+        >
+          <BlogTile
+            :post="post"
+            :show-author="false"
+          />
         </template>
       </div>
     </template>
