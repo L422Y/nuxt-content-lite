@@ -1,9 +1,15 @@
 <template>
   <div>
-    <template v-for="c in elements" :key="`${idx}`">
-      <div v-if="c.type === 'html'" v-html="c.content"/>
+    <template
+      v-for="c in elements"
+      :key="c.type + idx"
+    >
+      <component
+        :is="makeComponent(c)"
+        v-if="c.type === 'html'"
+      />
       <template v-if="c.type === 'component'">
-        <component :is="c.component"/>
+        <component :is="c.component" />
       </template>
     </template>
   </div>
@@ -14,15 +20,14 @@ import type { IContentLiteItem } from "~/dist/runtime/types"
 const idx = {
     get() {
         return Math.random()
-    },
-    set() {
-        // do nothing
     }
 }
 
 const passed = withDefaults(defineProps<{
     item?: IContentLiteItem
-}>(), {})
+}>(), {
+    item: undefined
+})
 
 
 let elements
@@ -50,5 +55,23 @@ if (passed.item?.content) {
         content: "An unusual error occurred."
     }]
 }
+
+
+const makeComponent = (c: any) => {
+    return defineComponent({
+        props: {
+            content: {
+                type: String,
+                default: c.content
+            }
+        },
+        render() {
+            return h("div", {
+                innerHTML: c.content
+            })
+        }
+    })
+}
+
 
 </script>
