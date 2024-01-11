@@ -1,11 +1,7 @@
 import { useState } from "nuxt/app"
 import { micromark } from "micromark"
-import type {
-    ContentLiteRawItem,
-    IContentLiteFindOptions,
-    IContentLiteItem,
-    IContentLiteOptions
-} from "~/src/runtime/types"
+import { ContentLiteRawItem, IContentLiteFindOptions, IContentLiteItem, IContentLiteOptions } from "../types"
+
 
 let globalOptions: IContentLiteOptions = {
     filterable: false,
@@ -13,12 +9,7 @@ let globalOptions: IContentLiteOptions = {
     contentDir: "content",
 }
 
-export type {
-    ContentLiteRawItem,
-    IContentLiteFindOptions,
-    IContentLiteItem,
-    IContentLiteOptions
-} from "~/src/runtime/types"
+
 
 const filterAbleResults = (content: IContentLiteItem): IContentLiteItem & { [key: string]: any } => {
     const dataString = Object.values(content.data).join(" ")
@@ -64,12 +55,15 @@ const initializeData = async () => {
                 return ( data as ContentLiteRawItem[] )
                     .map((item, index: number) => {
                         const [source, modified, data, content] = item
-                        const parentPaths = source.split("/").filter((path) => path.length > 0)
-                        const path = "/" + source.replace(/\/index\.md$/, "").replace(/\.md$/, "")
+                        if(!source.endsWith(".md")) {
+                            throw new Error(`Invalid source file ${source}`)
+                        }
+                        const parentPaths = source?.split("/").filter((path) => path.length > 0)
+                        const path = "/" + source?.replace(/\/index\.md$/, "").replace(/\.md$/, "")
                         parentPaths.pop()
                         const newItem = {
                             _clId: index,
-                            slug: path.split("/").pop()!,
+                            slug: path?.split("/").pop()!,
                             source,
                             path,
                             parentPaths,
@@ -144,6 +138,12 @@ export const useContentLite = async (options?: IContentLiteOptions) => {
         return await find(path, options)
     }
 
+    const singleRouteContent = async (options?: IContentLiteFindOptions):
+        Promise<IContentLiteItem & { [key: string]: any } | undefined> => {
+        const path = useRoute().path
+        return await findOne(path, options)
+    }
+
     const find = async (path?: string, options?: IContentLiteFindOptions):
         Promise<Array<IContentLiteItem & { [key: string]: any }>> => {
 
@@ -179,6 +179,7 @@ export const useContentLite = async (options?: IContentLiteOptions) => {
 
 
     return {
+        singleRouteContent,
         routeContent,
         findOne,
         find,
