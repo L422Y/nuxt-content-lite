@@ -5,7 +5,8 @@
       <BlogTile
         v-for="post in posts"
         :key="post.title"
-        :post="post" :show-author="true"
+        :post="post"
+        :show-author="true"
       />
     </div>
   </div>
@@ -14,4 +15,4 @@
 const content = await useContentLite({flattenData: true})
 const posts = await content.find("blog")
 </script>
-<style lang="scss" scoped src="~/scss/blog.scss"/>
+<style lang="scss" scoped src="~/scss/blog.scss" />
