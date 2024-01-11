@@ -17,7 +17,7 @@
   </main>
 </template>
 <script setup>
-const content = await useContentLite({
+await useContentLite({
     filterable: false,
     flattenData: true
 })
