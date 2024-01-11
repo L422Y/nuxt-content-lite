@@ -6,22 +6,30 @@
         <div class="blog--post__meta">
           <div>
             By
-            <NuxtLink :to="author.path" class="blog--post__author">
+            <NuxtLink
+              :to="author.path"
+              class="blog--post__author"
+            >
               {{ author.name }}
             </NuxtLink>
           </div>
           <time>{{ timeAgo }}</time>
         </div>
-        <p class="blog--post__desc">{{ post.description }}</p>
+        <p class="blog--post__desc">
+          {{ post.description }}
+        </p>
       </header>
       <div class="categories">
-        <template v-for="category in post.categories" :key="category">
+        <template
+          v-for="category in post.categories"
+          :key="category"
+        >
           <NuxtLink :to="`/blog/categories/${category}`">
             {{ category }}
           </NuxtLink>
         </template>
       </div>
-      <ContentLiteDoc :item="post"/>
+      <ContentLiteDoc :item="post" />
     </template>
     <template v-else>
       <h1>Not Found</h1>
