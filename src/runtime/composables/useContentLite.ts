@@ -1,13 +1,11 @@
 import { useState } from "nuxt/app"
-import { micromark } from "micromark"
+import { micromark } from "micromark/dev"
 import type { ContentLiteRawItem, IContentLiteFindOptions, IContentLiteItem, IContentLiteOptions } from "../types"
-
 
 let globalOptions: IContentLiteOptions = {
     filterable: false,
     flattenData: true,
 }
-
 
 /**
  * Filter out words that are not useful for searching, and create a map of words to the number of times they appear
