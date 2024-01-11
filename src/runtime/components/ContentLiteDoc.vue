@@ -16,6 +16,7 @@
 </template>
 <script lang="ts" setup>
 import type { IContentLiteItem } from "~/dist/runtime/types"
+import { defineProps, defineComponent, h } from "vue"
 
 const idx = {
     get() {
@@ -56,7 +57,6 @@ if (passed.item?.content) {
     }]
 }
 
-
 const makeComponent = (c: any) => {
     return defineComponent({
         props: {
@@ -72,6 +72,4 @@ const makeComponent = (c: any) => {
         }
     })
 }
-
-
 </script>
