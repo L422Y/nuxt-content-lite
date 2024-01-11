@@ -30,6 +30,11 @@
   "dependencies": {
     "@nuxt/kit": "^3.9.0"
   },
+  "optionalDependencies": {
+    "gray-matter": "^4.0.3",
+    "micromark": "^4.0.0",
+    "sass": "^1.69.7"
+  },
   "devDependencies": {
     "@types/node": "^20.10.6",
     "@nuxt/devtools": "latest",
