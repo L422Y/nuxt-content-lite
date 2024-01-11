@@ -9,10 +9,14 @@ let globalOptions: IContentLiteOptions = {
 }
 
 
+/**
+ * Filter out words that are not useful for searching, and create a map of words to the number of times they appear
+ * @param content
+ */
 const filterAbleResults = (content: IContentLiteItem): IContentLiteItem & { [key: string]: any } => {
+    const words = new Map<string, number>()
     const dataString = Object.values(content.data).join(" ")
     const contentString = content.content
-
     const bigString = dataString + " " + contentString
     // create a map of all words, with the value being the number of times the word appears
     let rawWords = bigString.toLowerCase()
@@ -24,9 +28,6 @@ const filterAbleResults = (content: IContentLiteItem): IContentLiteItem & { [key
         .replace(/[^a-z0-9]/g, " ")
         .split(" ")
     rawWords = rawWords.filter((word) => word.length > 3)
-
-
-    const words = new Map<string, number>()
     rawWords.forEach((word) => {
         if (words.has(word)) {
             words.set(word, words.get(word)! + 1)
@@ -53,12 +54,16 @@ const initializeData = async () => {
                 return ( data as ContentLiteRawItem[] )
                     .map((item, index: number) => {
                         const [source, modified, data, content] = item
+
                         if (!source.endsWith(".md")) {
                             throw new Error(`Invalid source file ${source}`)
                         }
-                        const parentPaths = source?.split("/").filter((path) => path.length > 0)
+
                         const path = "/" + source?.replace(/\/index\.md$/, "").replace(/\.md$/, "")
+
+                        const parentPaths = source?.split("/").filter((path) => path.length > 0)
                         parentPaths.pop()
+
                         const newItem = {
                             _clId: index,
                             slug: path?.split("/").pop()!,
