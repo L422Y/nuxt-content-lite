@@ -1,6 +1,7 @@
 import { useState } from "nuxt/app"
-import { micromark } from "micromark/dev"
 import type { ContentLiteRawItem, IContentLiteFindOptions, IContentLiteItem, IContentLiteOptions } from "../types"
+import type { Ref } from "@vue/reactivity"
+import {parse} from "marked"
 
 let globalOptions: IContentLiteOptions = {
     filterable: false,
@@ -41,7 +42,6 @@ const filterAbleResults = (content: IContentLiteItem): IContentLiteItem & { [key
 
 const initializeData = async () => {
     const contentData: Ref<IContentLiteItem[] | undefined> = useState("contentData", () => undefined)
-
     if (!contentData.value) {
         contentData.value = await $fetch("/.content-lite/content-lite.json")
             .then((data: any) => {
@@ -69,7 +69,7 @@ const initializeData = async () => {
                             path,
                             parentPaths,
                             data,
-                            content: micromark(content),
+                            content: parse(content),
                             modified: new Date(modified),
                         } as IContentLiteItem
 

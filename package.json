@@ -40,16 +40,16 @@
   },
   "dependencies": {
     "@nuxt/kit": "^3.9.0",
-    "micromark": "^3.2.0",
-    "gray-matter": "^4.0.3"
+    "gray-matter": "^4.0.3",
+    "marked": "^11.1.1"
   },
   "devDependencies": {
-    "@types/node": "^20.10.6",
     "@nuxt/devtools": "latest",
     "@nuxt/eslint-config": "^0.2.0",
     "@nuxt/module-builder": "^0.5.5",
     "@nuxt/schema": "^3.9.0",
     "@nuxt/test-utils": "^3.9.0",
+    "@types/node": "^20.10.6",
     "changelogen": "^0.5.5",
     "eslint": "^8.56.0",
     "nuxt": "^3.9.0",
