@@ -6,7 +6,10 @@
         v-for="post in posts"
         :key="post.title"
       >
-        <NuxtLink :to="post.path" class="blog--tile">
+        <NuxtLink
+          :to="post.path"
+          class="blog--tile"
+        >
           <h2>
             {{ post.title }}
           </h2>
@@ -37,4 +40,4 @@ const authors = await content.find("authors")
 posts.forEach((post) => post.author = authors.find((author) => author.slug === post.author))
 
 </script>
-<style lang="scss" scoped src="~/scss/blog.scss"/>
+<style lang="scss" scoped src="~/scss/blog.scss" />
