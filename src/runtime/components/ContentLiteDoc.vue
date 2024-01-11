@@ -16,7 +16,7 @@
 </template>
 <script lang="ts" setup>
 import type { IContentLiteItem } from "~/dist/runtime/types"
-import { defineProps, defineComponent, h } from "vue"
+import { defineComponent, h } from "vue"
 
 const idx = {
     get() {
