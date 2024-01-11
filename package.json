@@ -1,7 +1,7 @@
 {
   "name": "nuxt-content-lite",
   "version": "1.0.0",
-  "description": "Light-use markdown driven content engine inspired by Nuxt Content",
+  "description": "Light-use, markdown driven content engine inspired by Nuxt Content",
   "repository": "your-org/nuxt-content-lite",
   "license": "MIT",
   "type": "module",
