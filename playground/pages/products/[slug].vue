@@ -3,7 +3,7 @@
     <template v-if="product">
       <h1>{{ product.title }}</h1>
       <h3>${{ product.price }}</h3>
-      <ContentLite :doc="product"/>
+      <ContentLiteDoc :item="product"/>
     </template>
     <template v-else>
       <h1>Not Found</h1>
@@ -14,7 +14,4 @@
 <script lang="ts" setup>
 const content = await useContentLite()
 const product = await content.findOne(useRoute().path)
-
-const routeContent = await content.routeContent()
-
 </script>
