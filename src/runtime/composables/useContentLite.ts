@@ -1,14 +1,12 @@
 import { useState } from "nuxt/app"
 import { micromark } from "micromark"
-import { ContentLiteRawItem, IContentLiteFindOptions, IContentLiteItem, IContentLiteOptions } from "../types"
+import type { ContentLiteRawItem, IContentLiteFindOptions, IContentLiteItem, IContentLiteOptions } from "../types"
 
 
 let globalOptions: IContentLiteOptions = {
     filterable: false,
     flattenData: true,
-    contentDir: "content",
 }
-
 
 
 const filterAbleResults = (content: IContentLiteItem): IContentLiteItem & { [key: string]: any } => {
@@ -55,7 +53,7 @@ const initializeData = async () => {
                 return ( data as ContentLiteRawItem[] )
                     .map((item, index: number) => {
                         const [source, modified, data, content] = item
-                        if(!source.endsWith(".md")) {
+                        if (!source.endsWith(".md")) {
                             throw new Error(`Invalid source file ${source}`)
                         }
                         const parentPaths = source?.split("/").filter((path) => path.length > 0)
