@@ -1,5 +1,8 @@
 <template>
-  <NuxtLink :to="product.path" class="products--tile">
+  <NuxtLink
+    :to="product.path"
+    class="products--tile"
+  >
     <h2 class="products--tile--title">
       {{ product.title }}
     </h2>
