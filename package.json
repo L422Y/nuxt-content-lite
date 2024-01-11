@@ -3,6 +3,17 @@
   "version": "1.0.3",
   "description": "Light-use, markdown driven content engine inspired by Nuxt Content",
   "repository": "l422y/nuxt-content-lite",
+  "keywords": [
+    "nuxt",
+    "markdown",
+    "md",
+    "vue",
+    "vue3",
+    "nuxt3",
+    "layers",
+    "content",
+    "flat-file"
+  ],
   "license": "MIT",
   "type": "module",
   "exports": {
