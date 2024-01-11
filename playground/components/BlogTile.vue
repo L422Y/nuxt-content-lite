@@ -1,9 +1,15 @@
 <template>
-  <NuxtLink :to="post.path" class="blog--tile">
+  <NuxtLink
+    :to="post.path"
+    class="blog--tile"
+  >
     <h3>{{ post.title }}</h3>
     <time>{{ new Date(post.date).toLocaleDateString() }}</time>
     <p>{{ post.description }}</p>
-    <div v-if="showAuthor" class="blog--tile--author">
+    <div
+      v-if="showAuthor"
+      class="blog--tile--author"
+    >
       <span :to="author.path">
         {{ author.name }}
       </span>
