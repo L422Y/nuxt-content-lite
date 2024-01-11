@@ -1,7 +1,11 @@
 export default defineNuxtConfig({
-  modules: ['../src/module'],
-  contentLite: {
-    contentDir: 'playground/content',
-  },
-  devtools: { enabled: true }
+    modules: ["../src/module"],
+    contentLite: {
+        contentDir: "playground/content",
+    },
+    extends: [
+        "github:L422Y/nuxt-layer-fake-blog",
+    ],
+
+    devtools: {enabled: true}
 })
