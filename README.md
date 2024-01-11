@@ -1,12 +1,3 @@
-<!--
-Get your module up and running quickly.
-
-Find and replace all on all files (CMD+SHIFT+F):
-- Name: Nuxt Content Lite
-- Package name: nuxt-content-lite
-- Description: Light-use markdown driven content engine inspired by Nuxt Content
--->
-
 # Nuxt Content Lite
 
 [![npm version][npm-version-src]][npm-version-href]
@@ -14,18 +5,64 @@ Find and replace all on all files (CMD+SHIFT+F):
 [![License][license-src]][license-href]
 [![Nuxt][nuxt-src]][nuxt-href]
 
-Light-use markdown driven content engine inspired by Nuxt Content for doing amazing things.
+Light-use markdown driven content engine inspired by Nuxt Content for doing amazing things with markdown, with less.
 
-- [✨ &nbsp;Release Notes](/CHANGELOG.md)
-<!-- - [🏀 Online playground](https://stackblitz.com/github/your-org/nuxt-content-lite?file=playground%2Fapp.vue) -->
-<!-- - [📖 &nbsp;Documentation](https://example.com) -->
+## Why?
+
+[Nuxt Content](https://content.nuxt.com/) is an amazing module, but it's a bit heavy for some use cases. Nuxt Content Lite is a lightweight
+alternative for those who don't need all the bells and whistles.
+
+The goal of Nuxt Content Lite is to provide a simple, lightweight, and flexible way to use markdown content in your Nuxt
+app or website, while keeping things light and fast.
+
+## Who is this for?
+
+Smaller sites, blogs, and apps that don't need all the bells and whistles of Nuxt Content.
+
+The primary use case for Nuxt Content Lite is for small sites that need a little more than just static content, but
+don't need a full-blown CMS like Wordpress. 
+
+If you're building a large site, blog a ton of posts, or app, you should probably
+use [Nuxt Content](https://content.nuxt.com/).
+
+## What's the difference?
+
+> We use tuples instead of objects for storing content! 
+
+...and we don't have a lot of the features that Nuxt Content has.
+
+Currently, Nuxt Content Lite renders all content into a single file on build. This means that while you can use Nuxt
+Content Lite to build a blog, you probably shouldn't use it to build a blog with a ton of posts. 
+
+We're working on a way to split content into multiple files, but for now, Nuxt Content Lite is best for smaller sites.
+
+## Roadmap
+- [x] ~~Markdown content~~
+- [x] ~~Markdown content rendering~~
+- [x] ~~Vue Composable~~
+- [x] ~~ContentLiteDoc component~~
+- [x] ~~Basic content rendering~~
+- [x] ~~Frontmatter~~
+- [x] ~~Nuxt layers~~
+- [x] ~~Vue components~~
+- [x] ~~Generate unique word lists with counts~~
+- [x] ~~Find all content for path~~
+- [x] ~~Find single content for path~~
+- [ ] Content API
+- [ ] (better) Content search
+- [ ] Content pagination
+- [ ] Content tags
+- [ ] Content categories
+- [ ] Split content into multiple files
+- [ ] Content caching
+
 
 ## Features
 
-<!-- Highlight some of the features your module provide here -->
-- ⛰ &nbsp;Foo
-- 🚠 &nbsp;Bar
-- 🌲 &nbsp;Baz
+- Markdown-based content
+- Frontmatter
+- Supports Nuxt layers
+- Supports Vue components
 
 ## Quick Setup
 
@@ -46,9 +83,9 @@ npm install --save-dev nuxt-content-lite
 
 ```js
 export default defineNuxtConfig({
-  modules: [
-    'nuxt-content-lite'
-  ]
+    modules: [
+        'nuxt-content-lite'
+    ]
 })
 ```
 
@@ -81,14 +118,19 @@ npm run release
 ```
 
 <!-- Badges -->
+
 [npm-version-src]: https://img.shields.io/npm/v/nuxt-content-lite/latest.svg?style=flat&colorA=18181B&colorB=28CF8D
+
 [npm-version-href]: https://npmjs.com/package/nuxt-content-lite
 
 [npm-downloads-src]: https://img.shields.io/npm/dm/nuxt-content-lite.svg?style=flat&colorA=18181B&colorB=28CF8D
+
 [npm-downloads-href]: https://npmjs.com/package/nuxt-content-lite
 
 [license-src]: https://img.shields.io/npm/l/nuxt-content-lite.svg?style=flat&colorA=18181B&colorB=28CF8D
+
 [license-href]: https://npmjs.com/package/nuxt-content-lite
 
 [nuxt-src]: https://img.shields.io/badge/Nuxt-18181B?logo=nuxt.js
+
 [nuxt-href]: https://nuxt.com
