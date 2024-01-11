@@ -5,7 +5,7 @@
       <ProductTile
         v-for="product in products"
         :key="product._clId"
-        :product
+        :product="product"
       />
     </div>
   </div>
@@ -14,4 +14,4 @@
 const content = await useContentLite({flattenData: true})
 const products = await content.routeContent()
 </script>
-<style lang="scss" scoped src="~/scss/products.scss"/>
+<style lang="scss" scoped src="~/scss/products.scss" />
