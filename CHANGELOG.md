@@ -1,6 +1,10 @@
 # Changelog
 
 
+## v1.0.7
+
+[compare changes](https://github.com/l422y/nuxt-content-lite/compare/v1.0.6...v1.0.7)
+
 ## v1.0.6
 
 [compare changes](https://github.com/l422y/nuxt-content-lite/compare/v1.0.5...v1.0.6)
