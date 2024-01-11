@@ -9,7 +9,8 @@ Light-use markdown driven content engine inspired by Nuxt Content for doing amaz
 
 ## Why?
 
-[Nuxt Content](https://content.nuxt.com/) is an amazing module, but it's a bit heavy for some use cases. Nuxt Content Lite is a lightweight
+[Nuxt Content](https://content.nuxt.com/) is an amazing module, but it's a bit heavy for some use cases. Nuxt Content
+Lite is a lightweight
 alternative for those who don't need all the bells and whistles.
 
 The goal of Nuxt Content Lite is to provide a simple, lightweight, and flexible way to use markdown content in your Nuxt
@@ -20,23 +21,84 @@ app or website, while keeping things light and fast.
 Smaller sites, blogs, and apps that don't need all the bells and whistles of Nuxt Content.
 
 The primary use case for Nuxt Content Lite is for small sites that need a little more than just static content, but
-don't need a full-blown CMS like Wordpress. 
+don't need a full-blown CMS like Wordpress.
 
 If you're building a large site, blog a ton of posts, or app, you should probably
 use [Nuxt Content](https://content.nuxt.com/).
 
 ## What's the difference?
 
-> We use tuples instead of objects for storing content! 
+> We use tuples instead of objects for storing content!
 
 ...and we don't have a lot of the features that Nuxt Content has.
 
 Currently, Nuxt Content Lite renders all content into a single file on build. This means that while you can use Nuxt
-Content Lite to build a blog, you probably shouldn't use it to build a blog with a ton of posts. 
+Content Lite to build a blog, you probably shouldn't use it to build a blog with a ton of posts.
 
 We're working on a way to split content into multiple files, but for now, Nuxt Content Lite is best for smaller sites.
 
+## Usage
+
+The primary way to use Nuxt Content Lite is with the `ContentLiteDoc` component and the `useContentLite` composable.
+
+### ContentLiteDoc
+
+The `ContentLiteDoc` component is a simple component that renders markdown content. It's primary use is for rendering
+markdown content in a page or layout.
+
+It accepts a `item` prop, which is the content item you want to render the content for.
+
+```vue
+
+<template>
+  <ContentLiteDoc :item="item"/>
+  <!-- or -->
+  <div v-for="post in posts" :key="post.slug">
+    {{post.title}}
+  </div>
+</template>
+
+<script lang="ts" setup>
+
+  // instantiate the composable
+  import { IContentLiteItem } from "./index"
+
+  const cl = await useContentLite({
+    // generates word list w/ counts as Map<string, number> 
+    // as `words` property on the content item
+    filterable: true,
+    // flattens the frontmatter into the content item
+    flattenData: true,
+  })
+
+  // get a single content item for the current route
+  const item = await cl.singleRouteContent()
+  // or at a specific path
+  const post = await cl.findOne("blog/awesome-post")
+  const author = await cl.findOne(`authors/${post.author}`)
+
+
+  // get all content for the current route
+  const allItems = await cl.routeContent()
+  // or all content for a specific path
+  const posts = await cl.find("blog")
+
+
+  // get all content
+  const allContent = cl.contentData
+
+</script>
+```
+
+## Features
+
+- Markdown-based content
+- Frontmatter
+- Supports Nuxt layers
+- Supports Vue components
+
 ## Roadmap
+
 - [x] ~~Markdown content~~
 - [x] ~~Markdown content rendering~~
 - [x] ~~Vue Composable~~
@@ -55,14 +117,6 @@ We're working on a way to split content into multiple files, but for now, Nuxt C
 - [ ] Content categories
 - [ ] Split content into multiple files
 - [ ] Content caching
-
-
-## Features
-
-- Markdown-based content
-- Frontmatter
-- Supports Nuxt layers
-- Supports Vue components
 
 ## Quick Setup
 
