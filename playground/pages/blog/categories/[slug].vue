@@ -20,6 +20,7 @@
 <script lang="ts" setup>
 const slug = useRoute().params.slug as string
 const content = await useContentLite()
+
 const posts = await content.find("blog").then((posts) => {
     return posts.filter((post) => post.categories?.includes(slug))
 })
