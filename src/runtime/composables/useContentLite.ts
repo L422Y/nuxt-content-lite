@@ -167,6 +167,10 @@ export const useContentLite = async (options?: IContentLiteOptions) => {
             return content.path === `/${path}` || content.parentPaths.includes(path!)
         })
 
+        results = results.filter((item) => {
+            return !item.source.endsWith("/index.md")
+        })
+
         if (globalOptions?.filterable || options?.filterable) {
             results = results.map(filterAbleResults)
         }
@@ -178,6 +182,7 @@ export const useContentLite = async (options?: IContentLiteOptions) => {
                 return {...newItem, ...item.data}
             })
         }
+
 
         return results
     }
