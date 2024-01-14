@@ -1,7 +1,7 @@
 import { useState } from "nuxt/app"
 import type { ContentLiteRawItem, IContentLiteFindOptions, IContentLiteItem, IContentLiteOptions } from "../types"
 import type { Ref } from "vue"
-import {parse} from "marked"
+import { parse } from "marked"
 
 let globalOptions: IContentLiteOptions = {
     filterable: false,
@@ -108,8 +108,12 @@ export const useContentLite = async (options?: IContentLiteOptions) => {
             throw new Error("Content data not loaded")
         }
 
-        if (!path || path === "/" || path === "*") {
+        if (!path || path === "*") {
             return undefined
+        }
+
+        if (path === "/") {
+            path = "/index"
         }
 
         if (path.endsWith("/")) path = path.slice(0, -1)

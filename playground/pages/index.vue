@@ -1,7 +1,6 @@
 <template>
   <div class="page">
-    Welcome to zombo.com
-    <pre>{{ content.contentData }}</pre>
+  <ContentLiteDoc />
   </div>
 </template>
 <script lang="ts" setup>

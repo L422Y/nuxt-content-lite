@@ -9,7 +9,7 @@
         v-if="c.type === 'html'"
       />
       <template v-if="c.type === 'component'">
-        <component :is="c.component" />
+        <component :is="c.component"/>
       </template>
     </template>
   </div>
@@ -18,23 +18,29 @@
 import type { IContentLiteItem } from "~/dist/runtime/types"
 import { defineComponent, h } from "vue"
 
-const idx = {
-    get() {
-        return Math.random()
-    }
-}
-
 const passed = withDefaults(defineProps<{
     item?: IContentLiteItem
 }>(), {
     item: undefined
 })
 
+const actualItem = ref(passed.item)
+const idx = {
+    get() {
+        return new Date().getTime()
+    }
+}
+
+
+if (!actualItem.value) {
+    const $route = useRoute()
+    const content = await useContentLite({filterable: false})
+    actualItem.value = await content.findOne($route.path)
+}
 
 let elements
-
-if (passed.item?.content) {
-    elements = passed.item.content
+if (actualItem.value?.content) {
+    elements = actualItem.value.content
         .split(/<p>(:[-a-zA-Z0-9]+)<\/p>/g)
         .map((c: any) => {
             const match = c.match(/^:([-a-zA-Z0-9]+)$/)
