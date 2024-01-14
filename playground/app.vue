@@ -10,6 +10,9 @@
       <NuxtLink to="/products">
         Products
       </NuxtLink>
+      <NuxtLink to="/about">
+        About
+      </NuxtLink>
     </nav>
     <div>
       <NuxtPage />
