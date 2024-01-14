@@ -1,6 +1,26 @@
 # Changelog
 
 
+## v1.1.0
+
+[compare changes](https://github.com/l422y/nuxt-content-lite/compare/v1.0.10...v1.1.0)
+
+### 🚀 Enhancements
+
+- Add support for index.md when using ContentLiteDoc ([9c79084](https://github.com/l422y/nuxt-content-lite/commit/9c79084))
+
+### 🩹 Fixes
+
+- Ignore index.md files when using 'find' method ([4876bc1](https://github.com/l422y/nuxt-content-lite/commit/4876bc1))
+
+### 🏡 Chore
+
+- Update playground ([7dbb677](https://github.com/l422y/nuxt-content-lite/commit/7dbb677))
+
+### ❤️ Contributors
+
+- Larry W. ([@L422Y](http://github.com/L422Y))
+
 ## v1.0.10
 
 [compare changes](https://github.com/l422y/nuxt-content-lite/compare/v1.0.9...v1.0.10)
