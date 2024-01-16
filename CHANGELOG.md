@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v1.1.1
+
+[compare changes](https://github.com/l422y/nuxt-content-lite/compare/v1.1.0...v1.1.1)
+
+### 🩹 Fixes
+
+- Add explicit import of ref ([ef6e0fd](https://github.com/l422y/nuxt-content-lite/commit/ef6e0fd))
+
+### ❤️ Contributors
+
+- Larry W. ([@L422Y](http://github.com/L422Y))
+
 ## v1.1.0
 
 [compare changes](https://github.com/l422y/nuxt-content-lite/compare/v1.0.10...v1.1.0)
