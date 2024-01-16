@@ -18,7 +18,7 @@
 import type { IContentLiteItem } from "~/dist/runtime/types"
 import { useContentLite } from "../composables/useContentLite"
 import { defineComponent, h, ref } from "vue"
-import { useRoute } from "#app"
+import { useRoute } from "#app/composables/router"
 
 const passed = withDefaults(defineProps<{
     item?: IContentLiteItem
