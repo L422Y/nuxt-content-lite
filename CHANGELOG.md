@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v1.2.3
+
+[compare changes](https://github.com/l422y/nuxt-content-lite/compare/v1.2.2...v1.2.3)
+
+### 🩹 Fixes
+
+- Use index as content path for ContentLiteDoc ([38f06b3](https://github.com/l422y/nuxt-content-lite/commit/38f06b3))
+
+### ❤️ Contributors
+
+- Larry W. ([@L422Y](http://github.com/L422Y))
+
 ## v1.2.2
 
 [compare changes](https://github.com/l422y/nuxt-content-lite/compare/v1.2.1...v1.2.2)
