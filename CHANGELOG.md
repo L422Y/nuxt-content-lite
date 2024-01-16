@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v1.2.9
+
+[compare changes](https://github.com/l422y/nuxt-content-lite/compare/v1.2.8...v1.2.9)
+
+### 🩹 Fixes
+
+- More explicit imports 🫠 ([6de8dd4](https://github.com/l422y/nuxt-content-lite/commit/6de8dd4))
+
+### ❤️ Contributors
+
+- Larry W. ([@L422Y](http://github.com/L422Y))
+
 ## v1.2.8
 
 [compare changes](https://github.com/l422y/nuxt-content-lite/compare/v1.2.7...v1.2.8)
