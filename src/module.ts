@@ -148,7 +148,18 @@ export default defineNuxtModule({
         // watch for changes to content files during development and rebuild the content-lite.json file
         if (nuxt.options.dev) {
             const websocketServer = require("ws").Server
-            const wss = new websocketServer({port: 24931})
+
+            // find a free port
+            const server = require("http").createServer()
+            server.listen()
+            const port = server.address().port
+            server.close()
+
+            const wss = new websocketServer({port})
+
+            // write the port to a file so the plugin can connect
+            const portPath = path.resolve(contentLiteDir, "port")
+            fs.writeFileSync(portPath, port.toString())
 
             const chokidar = require("chokidar")
             const watcher = chokidar.watch(path.resolve(".", moduleOptions.contentDir), {
