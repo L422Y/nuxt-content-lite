@@ -16,7 +16,7 @@
 </template>
 <script lang="ts" setup>
 import type { IContentLiteItem } from "~/dist/runtime/types"
-import { defineComponent, h } from "vue"
+import { defineComponent, h, ref } from "vue"
 
 const passed = withDefaults(defineProps<{
     item?: IContentLiteItem
