@@ -1,6 +1,7 @@
 import { useState } from "nuxt/app"
 import type { ContentLiteRawItem, IContentLiteFindOptions, IContentLiteItem, IContentLiteOptions } from "../types"
 import type { Ref } from "vue"
+import { reactive } from "vue"
 import { parse } from "marked"
 
 let globalOptions: IContentLiteOptions = {
