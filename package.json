@@ -40,8 +40,7 @@
   },
   "dependencies": {
     "@nuxt/kit": "^3.9.0",
-    "gray-matter": "^4.0.3",
-    "marked": "^11.1.1"
+    "gray-matter": "^4.0.3"
   },
   "devDependencies": {
     "@nuxt/devtools": "latest",
@@ -53,6 +52,8 @@
     "@types/ws": "^8.5.10",
     "changelogen": "^0.5.5",
     "eslint": "^8.56.0",
+    "gray-matter": "^4.0.3",
+    "marked": "^11.1.1",
     "nuxt": "^3.9.0",
     "vitest": "^1.0.0"
   }

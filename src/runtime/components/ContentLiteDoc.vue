@@ -39,9 +39,11 @@ const idx = {
 if (passed.item) {
     actualItem = ref(passed.item)
 } else {
-    actualItem = computed(() =>
-        content.contentData?.value?.find(a => a.path === $route.path)
-    )
+    let contentPath = $route.path
+    if (contentPath === "/") {
+        contentPath = "/index"
+    }
+    actualItem = computed(() => content.contentData?.value?.find(a => a.path === contentPath))
 }
 
 
@@ -66,7 +68,7 @@ const elements = computed(() => {
     } else {
         return [{
             type: "html",
-            content: "An unusual error occurred."
+            content: "Content not found for `" + $route.path + "`"
         }]
     }
 })
