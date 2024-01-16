@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v1.3.0
+
+[compare changes](https://github.com/l422y/nuxt-content-lite/compare/v1.2.9...v1.3.0)
+
+### 🚀 Enhancements
+
+- Support live updates in dev for usage outside of ContentLiteDoc ([0be7aff](https://github.com/l422y/nuxt-content-lite/commit/0be7aff))
+
+### ❤️ Contributors
+
+- Larry W. ([@L422Y](http://github.com/L422Y))
+
 ## v1.2.9
 
 [compare changes](https://github.com/l422y/nuxt-content-lite/compare/v1.2.8...v1.2.9)
