@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v1.2.1
+
+[compare changes](https://github.com/l422y/nuxt-content-lite/compare/v1.2.0...v1.2.1)
+
+### 🩹 Fixes
+
+- Remove .ts extension ([446d25e](https://github.com/l422y/nuxt-content-lite/commit/446d25e))
+
+### ❤️ Contributors
+
+- Larry W. ([@L422Y](http://github.com/L422Y))
+
 ## v1.2.0
 
 [compare changes](https://github.com/l422y/nuxt-content-lite/compare/v1.1.4...v1.2.0)
