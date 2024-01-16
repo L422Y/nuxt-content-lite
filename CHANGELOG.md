@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v1.3.3
+
+[compare changes](https://github.com/l422y/nuxt-content-lite/compare/v1.3.2...v1.3.3)
+
+### 🩹 Fixes
+
+- For markdown without frontmatter use empty dataString ([4c80957](https://github.com/l422y/nuxt-content-lite/commit/4c80957))
+
+### ❤️ Contributors
+
+- Larry W. ([@L422Y](http://github.com/L422Y))
+
 ## v1.3.2
 
 [compare changes](https://github.com/l422y/nuxt-content-lite/compare/v1.3.1...v1.3.2)
