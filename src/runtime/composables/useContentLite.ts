@@ -9,7 +9,7 @@ let globalOptions: IContentLiteOptions = {
 }
 
 /**
- * Filter out words that are not useful for searching, and create a map of words to the number of times they appear
+ * Filter out words that are not useful for searching, and create a map of useful words to the number of times they appear
  * @param content
  */
 const filterAbleResults = (content: IContentLiteItem): IContentLiteItem & { [key: string]: any } => {
@@ -43,49 +43,54 @@ const filterAbleResults = (content: IContentLiteItem): IContentLiteItem & { [key
 const initializeData = async () => {
     const contentData: Ref<IContentLiteItem[] | undefined> = useState("contentData", () => undefined)
     if (!contentData.value) {
-        contentData.value = await $fetch("/.content-lite/content-lite.json")
-            .then((data: any) => {
-                if (!data) {
-                    throw new Error("Content data not loaded")
-                }
-                // process tuples into objects
-                return ( data as ContentLiteRawItem[] )
-                    .map((item, index: number) => {
-                        const [source, modified, data, content] = item
-
-                        if (!source.endsWith(".md")) {
-                            throw new Error(`Invalid source file ${source}`)
-                        }
-
-                        const path = "/" + source?.replace(/\/index\.md$/, "").replace(/\.md$/, "")
-
-                        const parentPaths = source?.split("/").filter((path) => path.length > 0)
-                        parentPaths.pop()
-
-                        const newItem = {
-                            _clId: index,
-                            slug: path?.split("/").pop()!,
-                            source,
-                            path,
-                            parentPaths,
-                            data,
-                            content: parse(content),
-                            modified: new Date(modified),
-                        } as IContentLiteItem
-
-                        if (globalOptions?.filterable) {
-                            newItem.words = filterAbleResults(newItem).words
-                        }
-
-                        return newItem
-                    })
-
-
-            }).catch((error) => {
-                console.error("error", error)
-                throw error
-            })
+        contentData.value = reactive(await loadContentData())
     }
+}
+
+const loadContentData = async () => {
+    return await $fetch("/.content-lite/content-lite.json")
+        .then((data: any) => {
+            if (!data) {
+                throw new Error("Content data not loaded")
+            }
+            // process tuples into objects
+            const converted = ( data as ContentLiteRawItem[] )
+                .map((item, index: number) => {
+                    const [source, modified, data, content] = item
+
+                    if (!source.endsWith(".md")) {
+                        throw new Error(`Invalid source file ${source}`)
+                    }
+
+                    const path = "/" + source?.replace(/\/index\.md$/, "").replace(/\.md$/, "")
+
+                    const parentPaths = source?.split("/").filter((path) => path.length > 0)
+                    parentPaths.pop()
+
+                    const newItem = {
+                        _clId: index,
+                        slug: path?.split("/").pop()!,
+                        source,
+                        path,
+                        parentPaths,
+                        data,
+                        content: parse(content),
+                        modified: new Date(modified),
+                    } as IContentLiteItem
+
+                    if (globalOptions?.filterable) {
+                        newItem.words = filterAbleResults(newItem).words
+                    }
+
+                    return newItem
+                })
+
+            return reactive(converted)
+
+        }).catch((error) => {
+            console.error("error", error)
+            throw error
+        })
 }
 
 export const useContentLite = async (options?: IContentLiteOptions) => {
@@ -183,16 +188,31 @@ export const useContentLite = async (options?: IContentLiteOptions) => {
             })
         }
 
-
         return results
     }
 
+    const reload = async () => {
+        const newContentData = await loadContentData()
+        newContentData.forEach((newItem) => {
+            const oldItem = contentData.value?.find((item) => item.source === newItem.source)
+            if (oldItem) {
+                if (oldItem.words) {
+                    newItem = filterAbleResults(newItem)
+                }
+                if(globalOptions?.flattenData || options?.flattenData || !oldItem.data) {
+                    newItem = {...newItem, ...newItem.data}
+                }
+                Object.assign(oldItem, newItem)
+            }
+        })
+    }
 
     return {
+        contentData,
         singleRouteContent,
         routeContent,
         findOne,
         find,
-        contentData
+        reload
     }
 }

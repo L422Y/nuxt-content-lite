@@ -20,50 +20,55 @@ import { useContentLite } from "../composables/useContentLite"
 import { defineComponent, h, ref } from "vue"
 import { useRoute } from "#app/composables/router"
 
+const content = await useContentLite({filterable: false})
+const $route = useRoute()
+
 const passed = withDefaults(defineProps<{
     item?: IContentLiteItem
 }>(), {
     item: undefined
 })
 
-const actualItem = ref(passed.item)
+let actualItem = ref(passed.item)
 const idx = {
     get() {
         return new Date().getTime()
     }
 }
 
-
 if (!actualItem.value) {
     const $route = useRoute()
-    const content = await useContentLite({filterable: false})
-    actualItem.value = await content.findOne($route.path)
+    actualItem = computed(() =>
+        content.contentData?.value?.find(a => a.path === $route.path)
+    )
 }
 
-let elements
-if (actualItem.value?.content) {
-    elements = actualItem.value.content
-        .split(/<p>(:[-a-zA-Z0-9]+)<\/p>/g)
-        .map((c: any) => {
-            const match = c.match(/^:([-a-zA-Z0-9]+)$/)
-            if (match) {
-                return {
-                    type: "component",
-                    component: match[1]
+
+const elements = computed(() => {
+    if (actualItem.value?.content) {
+        return actualItem.value.content
+            .split(/<p>(:[-a-zA-Z0-9]+)<\/p>/g)
+            .map((c: any) => {
+                const match = c.match(/^:([-a-zA-Z0-9]+)$/)
+                if (match) {
+                    return {
+                        type: "component",
+                        component: match[1]
+                    }
+                } else {
+                    return {
+                        type: "html",
+                        content: c
+                    }
                 }
-            } else {
-                return {
-                    type: "html",
-                    content: c
-                }
-            }
-        })
-} else {
-    elements = [{
-        type: "html",
-        content: "An unusual error occurred."
-    }]
-}
+            })
+    } else {
+        return [{
+            type: "html",
+            content: "An unusual error occurred."
+        }]
+    }
+})
 
 const makeComponent = (c: any) => {
     return defineComponent({

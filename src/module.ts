@@ -1,7 +1,15 @@
-import { addComponentsDir, addImportsDir, addServerHandler, createResolver, defineNuxtModule } from "@nuxt/kit"
+import {
+    addComponentsDir,
+    addImportsDir,
+    addPlugin,
+    addServerHandler,
+    createResolver,
+    defineNuxtModule
+} from "@nuxt/kit"
 import fs from "fs"
 import path from "path"
 import type { ContentLiteRawItem } from "~/dist/runtime/types"
+import type { WebSocketClient } from "vite"
 
 export default defineNuxtModule({
     meta: {
@@ -35,17 +43,7 @@ export default defineNuxtModule({
             handler: moduleResolver.resolve("./runtime/endpoint.get")
         })
 
-
-        // nuxt.options.nitro.publicAssets ??= []
-        // nuxt.options.nitro.publicAssets.push({
-        //     baseURL: "/.content-lite/",
-        //     dir: contentLiteDir,
-        //     maxAge: 1,
-        // })
-
-
-
-        const populateContent = async (currentPath: string = moduleOptions.contentDir, baseDir?: string)=> {
+        const populateContent = async (currentPath: string = moduleOptions.contentDir, baseDir?: string) => {
             const path = require("path")
             const matter = require("gray-matter")
 
@@ -118,32 +116,74 @@ export default defineNuxtModule({
         }
 
 
+        const loadLayersContent = async () => {
+            const _layers = [...nuxt.options._layers].reverse()
+            for (const layer of _layers) {
+                const srcDir = layer.config.srcDir
+                const globalComponents = moduleResolver.resolve(srcDir, "components/content")
+                const layerContent = moduleResolver.resolve(srcDir, "content")
 
+                await populateContent(layerContent, layerContent)
 
-        // Register user global components, yoinked from @nuxt/content :)
-        const _layers = [...nuxt.options._layers].reverse()
-        for (const layer of _layers) {
-            const srcDir = layer.config.srcDir
-            const globalComponents = moduleResolver.resolve(srcDir, "components/content")
-            const layerContent = moduleResolver.resolve(srcDir, "content")
-
-            await populateContent(layerContent, layerContent)
-
-            const dirStat = await fs.promises.stat(globalComponents).catch(() => null)
-            if (dirStat && dirStat.isDirectory()) {
-                nuxt.hook("components:dirs", (dirs) => {
-                    dirs.unshift({
-                        path: globalComponents,
-                        global: true,
-                        pathPrefix: false,
-                        prefix: ""
+                const dirStat = await fs.promises.stat(globalComponents).catch(() => null)
+                if (dirStat && dirStat.isDirectory()) {
+                    nuxt.hook("components:dirs", (dirs) => {
+                        dirs.unshift({
+                            path: globalComponents,
+                            global: true,
+                            pathPrefix: false,
+                            prefix: ""
+                        })
                     })
-                })
+                }
             }
+
         }
+
+        await loadLayersContent()
 
         fs.mkdirSync(path.dirname(jsonPath), {recursive: true})
         fs.writeFileSync(jsonPath, JSON.stringify([...rawContentData]))
+
+        // watch for changes to content files during development and rebuild the content-lite.json file
+        if (nuxt.options.dev) {
+            const websocketServer = require("ws").Server
+            const wss = new websocketServer({port: 24931})
+
+            const chokidar = require("chokidar")
+            const watcher = chokidar.watch(path.resolve(".", moduleOptions.contentDir), {
+                ignored: /(^|[\/\\])\../,
+                persistent: true
+            })
+
+            watcher.on("change", async (path: string) => {
+                // find the item in the set and update it
+                const filePath = path.replace(/\\/g, "/")
+                const item = [...rawContentData]
+                    .find((item) => filePath.endsWith(item[0]))
+
+                if (!item) {
+                    return
+                }
+
+                const fileStat = fs.statSync(filePath)
+                const fileContents = fs.readFileSync(filePath, "utf-8")
+                const fileData = await getFileData(require("gray-matter"), fileContents)
+                item[1] = fileStat.mtime.toISOString()
+                item[2] = fileData.data
+                item[3] = fileData.body
+
+                await fs.promises.writeFile(jsonPath, JSON.stringify([...rawContentData]))
+
+                wss.clients.forEach((client: WebSocketClient) => {
+                    client.send("content-updated")
+                })
+            })
+
+            addPlugin({
+                src: moduleResolver.resolve("./runtime/dev-plugin.client.ts")
+            })
+        }
     }
 })
 
