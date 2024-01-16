@@ -17,7 +17,7 @@
 <script lang="ts" setup>
 import type { IContentLiteItem } from "~/dist/runtime/types"
 import { useContentLite } from "../composables/useContentLite"
-import { type ComputedRef, defineComponent, h, type Ref, ref } from "vue"
+import { computed, defineComponent, h, ref } from "vue"
 import { useRoute } from "#app/composables/router"
 
 const content = await useContentLite({filterable: false})
@@ -29,21 +29,25 @@ const passed = withDefaults(defineProps<{
     item: undefined
 })
 
-let actualItem: Ref<IContentLiteItem | undefined> | ComputedRef<IContentLiteItem | undefined>
+let actualItem = ref(passed.item)
+
 const idx = {
     get() {
         return new Date().getTime()
     }
 }
 
-if (passed.item) {
-    actualItem = ref(passed.item)
-} else {
-    let contentPath = $route.path
-    if (contentPath === "/") {
-        contentPath = "/index"
+if (!passed.item) {
+    if (process.dev) {
+        watch(() => content.contentData.value, async () => {
+            actualItem.value = await content.singleRouteContent()
+        }, {
+            immediate: true,
+            deep: true
+        })
+    } else {
+        actualItem.value = await content.singleRouteContent()
     }
-    actualItem = computed(() => content.contentData?.value?.find(a => a.path === contentPath))
 }
 
 
