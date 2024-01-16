@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v1.2.2
+
+[compare changes](https://github.com/l422y/nuxt-content-lite/compare/v1.2.1...v1.2.2)
+
+### 🩹 Fixes
+
+- Explicit import of reactive ([d991a3a](https://github.com/l422y/nuxt-content-lite/commit/d991a3a))
+
+### ❤️ Contributors
+
+- Larry W. ([@L422Y](http://github.com/L422Y))
+
 ## v1.2.1
 
 [compare changes](https://github.com/l422y/nuxt-content-lite/compare/v1.2.0...v1.2.1)
