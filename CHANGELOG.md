@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v1.2.6
+
+[compare changes](https://github.com/l422y/nuxt-content-lite/compare/v1.2.5...v1.2.6)
+
+### 🩹 Fixes
+
+- Explicit import for getQuery ([5d70197](https://github.com/l422y/nuxt-content-lite/commit/5d70197))
+
+### ❤️ Contributors
+
+- Larry W. ([@L422Y](http://github.com/L422Y))
+
 ## v1.2.5
 
 [compare changes](https://github.com/l422y/nuxt-content-lite/compare/v1.2.4...v1.2.5)
