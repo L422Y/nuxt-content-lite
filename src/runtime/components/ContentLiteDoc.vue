@@ -16,6 +16,7 @@
 </template>
 <script lang="ts" setup>
 import type { IContentLiteItem } from "~/dist/runtime/types"
+import { useContentLite } from "~/dist/runtime/composables/useContentLite"
 import { defineComponent, h, ref } from "vue"
 import { useRoute } from "#app"
 
