@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v1.2.5
+
+[compare changes](https://github.com/l422y/nuxt-content-lite/compare/v1.2.4...v1.2.5)
+
+### 🩹 Fixes
+
+- Find open port for websocket and allow dev plugin to fetch the port number via the endpoint ([020f15b](https://github.com/l422y/nuxt-content-lite/commit/020f15b))
+
+### ❤️ Contributors
+
+- Larry W. ([@L422Y](http://github.com/L422Y))
+
 ## v1.2.4
 
 [compare changes](https://github.com/l422y/nuxt-content-lite/compare/v1.2.3...v1.2.4)
