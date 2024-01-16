@@ -32,7 +32,7 @@ export const useContentLite = async (options?: IContentLiteOptions) => {
      */
     const makeFilterable = (content: IContentLiteItem): IContentLiteItem & { [key: string]: any } => {
         const words = new Map<string, number>()
-        const dataString = Object.values(content.data).join(" ")
+        const dataString = content.data ? Object.values(content.data).join(" ") : ""
         const contentString = content.content
         const bigString = dataString + " " + contentString
         // create a map of all words, with the value being the number of times the word appears
@@ -88,7 +88,7 @@ export const useContentLite = async (options?: IContentLiteOptions) => {
                         const parentPaths = source?.split("/").filter((path) => path.length > 0)
                         parentPaths.pop()
 
-                        let newItem = {
+                        const newItem = {
                             _clId: index,
                             slug: path?.split("/").pop()!,
                             source,
@@ -137,7 +137,7 @@ export const useContentLite = async (options?: IContentLiteOptions) => {
 
         if (path.endsWith("/")) path = path.slice(0, -1)
         if (!path.startsWith("/")) path = "/" + path
-        let item = [...contentData.value].find((content) => {
+        const item = [...contentData.value].find((content) => {
             return content.path === path || content.source === path || content.parentPaths.includes(path!)
         })
 
