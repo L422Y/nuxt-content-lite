@@ -1,4 +1,4 @@
-import { useState } from "nuxt/app"
+import { useState, useRoute } from "nuxt/app"
 import type { ContentLiteRawItem, IContentLiteFindOptions, IContentLiteItem, IContentLiteOptions } from "../types"
 import type { Ref } from "vue"
 import { reactive } from "vue"

@@ -15,10 +15,10 @@
   </div>
 </template>
 <script lang="ts" setup>
-import type { IContentLiteItem } from "~/dist/runtime/types"
+import type { IContentLiteItem } from "../types"
 import { useContentLite } from "../composables/useContentLite"
 import { watch, computed, defineComponent, h, ref } from "vue"
-import { useRoute } from "#app/composables/router"
+import { useRoute } from "#app"
 
 const content = await useContentLite({filterable: false})
 const $route = useRoute()
