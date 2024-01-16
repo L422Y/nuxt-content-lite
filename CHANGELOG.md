@@ -1,6 +1,19 @@
 # Changelog
 
 
+## v1.2.0
+
+[compare changes](https://github.com/l422y/nuxt-content-lite/compare/v1.1.4...v1.2.0)
+
+### 🚀 Enhancements
+
+- Live updating of content in dev mode ([79e8dd2](https://github.com/l422y/nuxt-content-lite/commit/79e8dd2))
+- Live updating of content in dev mode ([c14cc93](https://github.com/l422y/nuxt-content-lite/commit/c14cc93))
+
+### ❤️ Contributors
+
+- Larry W. ([@L422Y](http://github.com/L422Y))
+
 ## v1.1.4
 
 [compare changes](https://github.com/l422y/nuxt-content-lite/compare/v1.1.3...v1.1.4)
