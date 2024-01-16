@@ -29,7 +29,7 @@ const passed = withDefaults(defineProps<{
     item: undefined
 })
 
-let actualItem = ref(passed.item)
+const actualItem = ref(passed.item)
 
 const idx = {
     get() {
