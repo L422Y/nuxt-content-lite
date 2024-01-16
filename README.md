@@ -23,7 +23,7 @@ Smaller sites, blogs, and apps that don't need all the bells and whistles of Nux
 The primary use case for Nuxt Content Lite is for small sites that need a little more than just static content, but
 don't need a full-blown CMS like Wordpress.
 
-If you're building a large site, blog a ton of posts, or app, you should probably
+If you're building a large site, a blog with a ton of posts, or app, you should probably
 use [Nuxt Content](https://content.nuxt.com/).
 
 ## What's the difference?
