@@ -46,11 +46,16 @@ The primary way to use Nuxt Content Lite is with the `ContentLiteDoc` component 
 The `ContentLiteDoc` component is a simple component that renders markdown content. It's primary use is for rendering
 markdown content in a page or layout.
 
-It accepts a `item` prop, which is the content item you want to render the content for.
+It accepts an optional `item` prop, which is the content item you want to render the content for.
+
+If no `item` prop is provided, it will attempt to fetch the content for the current route, using the `singleRouteContent`
+method of the `useContentLite` composable.
 
 ```vue
 
 <template>
+  <ContentLiteDoc/>
+  <!-- or -->
   <ContentLiteDoc :item="item"/>
   <!-- or -->
   <div v-for="post in posts" :key="post.slug">
@@ -109,7 +114,8 @@ It accepts a `item` prop, which is the content item you want to render the conte
 - [x] ~~Vue components~~
 - [x] ~~Generate unique word lists with counts~~
 - [x] ~~Find all content for path~~
-- [x] ~~Find single content for path~~
+- [x] ~~Find single content for route/path~~
+- [x] ~~Live content updates during development~~
 - [ ] Content API
 - [ ] (better) Content search
 - [ ] Content pagination
