@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v1.2.8
+
+[compare changes](https://github.com/l422y/nuxt-content-lite/compare/v1.2.7...v1.2.8)
+
+### 🩹 Fixes
+
+- Explicit import for watch ([f0b56db](https://github.com/l422y/nuxt-content-lite/commit/f0b56db))
+
+### ❤️ Contributors
+
+- Larry W. ([@L422Y](http://github.com/L422Y))
+
 ## v1.2.7
 
 [compare changes](https://github.com/l422y/nuxt-content-lite/compare/v1.2.6...v1.2.7)
