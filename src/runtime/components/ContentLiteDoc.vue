@@ -9,7 +9,7 @@
         v-if="c.type === 'html'"
       />
       <template v-if="c.type === 'component'">
-        <component :is="c.component"/>
+        <component :is="c.component" />
       </template>
     </template>
   </div>
@@ -17,7 +17,7 @@
 <script lang="ts" setup>
 import type { IContentLiteItem } from "~/dist/runtime/types"
 import { useContentLite } from "../composables/useContentLite"
-import { defineComponent, h, ref } from "vue"
+import { type ComputedRef, defineComponent, h, type Ref, ref } from "vue"
 import { useRoute } from "#app/composables/router"
 
 const content = await useContentLite({filterable: false})
@@ -29,15 +29,16 @@ const passed = withDefaults(defineProps<{
     item: undefined
 })
 
-let actualItem = ref(passed.item)
+let actualItem: Ref<IContentLiteItem | undefined> | ComputedRef<IContentLiteItem | undefined>
 const idx = {
     get() {
         return new Date().getTime()
     }
 }
 
-if (!actualItem.value) {
-    const $route = useRoute()
+if (passed.item) {
+    actualItem = ref(passed.item)
+} else {
     actualItem = computed(() =>
         content.contentData?.value?.find(a => a.path === $route.path)
     )

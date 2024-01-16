@@ -152,7 +152,7 @@ export default defineNuxtModule({
 
             const chokidar = require("chokidar")
             const watcher = chokidar.watch(path.resolve(".", moduleOptions.contentDir), {
-                ignored: /(^|[\/\\])\../,
+                ignored: /(^|[/\\])\../,
                 persistent: true
             })
 

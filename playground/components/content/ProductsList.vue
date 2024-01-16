@@ -1,7 +1,8 @@
 <template>
   <div class="products--tiles">
-    <template v-for="product in products"
-              :key="product._clId"
+    <template
+      v-for="product in products"
+      :key="product._clId"
     >
       <ProductTile
         :product="product"
@@ -13,4 +14,4 @@
 const content = await useContentLite({flattenData: true})
 const products = await content.find("products")
 </script>
-<style lang="scss" scoped src="~/scss/products.scss"/>
+<style lang="scss" scoped src="~/scss/products.scss" />

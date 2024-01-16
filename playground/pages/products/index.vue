@@ -1,7 +1,7 @@
 <template>
   <div class="products">
     <div class="page">
-      <ContentLiteDoc/>
+      <ContentLiteDoc />
     </div>
   </div>
 </template>
