@@ -181,7 +181,7 @@ export default defineNuxtModule({
             })
 
             addPlugin({
-                src: moduleResolver.resolve("./runtime/dev-plugin.client.ts")
+                src: moduleResolver.resolve("./runtime/dev-plugin.client")
             })
         }
     }
