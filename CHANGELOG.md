@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v1.2.7
+
+[compare changes](https://github.com/l422y/nuxt-content-lite/compare/v1.2.6...v1.2.7)
+
+### 🩹 Fixes
+
+- Explicit import for defineNuxtPlugin ([46f1ee4](https://github.com/l422y/nuxt-content-lite/commit/46f1ee4))
+
+### ❤️ Contributors
+
+- Larry W. ([@L422Y](http://github.com/L422Y))
+
 ## v1.2.6
 
 [compare changes](https://github.com/l422y/nuxt-content-lite/compare/v1.2.5...v1.2.6)
