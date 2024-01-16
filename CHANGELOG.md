@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v1.3.2
+
+[compare changes](https://github.com/l422y/nuxt-content-lite/compare/v1.3.1...v1.3.2)
+
+### 🩹 Fixes
+
+- Don't mutate data in find/findOne ([adde90c](https://github.com/l422y/nuxt-content-lite/commit/adde90c))
+
+### ❤️ Contributors
+
+- Larry W. ([@L422Y](http://github.com/L422Y))
+
 ## v1.3.1
 
 [compare changes](https://github.com/l422y/nuxt-content-lite/compare/v1.3.0...v1.3.1)
