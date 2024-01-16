@@ -1,6 +1,19 @@
 # Changelog
 
 
+## v1.1.3
+
+[compare changes](https://github.com/l422y/nuxt-content-lite/compare/v1.1.2...v1.1.3)
+
+### 🩹 Fixes
+
+- Add explicit import of useContentLite to component ([8992a2d](https://github.com/l422y/nuxt-content-lite/commit/8992a2d))
+- Add explicit import of useContentLite to component ([53227b0](https://github.com/l422y/nuxt-content-lite/commit/53227b0))
+
+### ❤️ Contributors
+
+- Larry W. ([@L422Y](http://github.com/L422Y))
+
 ## v1.1.2
 
 [compare changes](https://github.com/l422y/nuxt-content-lite/compare/v1.1.1...v1.1.2)
