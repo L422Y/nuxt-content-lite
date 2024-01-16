@@ -1,6 +1,6 @@
 import * as path from "path"
 import * as fs from "fs"
-import { eventHandler } from "h3"
+import { eventHandler, getQuery } from "h3"
 
 let json: any
 
