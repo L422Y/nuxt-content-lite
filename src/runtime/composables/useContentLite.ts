@@ -53,7 +53,6 @@ export const useContentLite = async (options?: IContentLiteOptions) => {
             }
         })
 
-
         content.words = words
         return content
     }
@@ -89,19 +88,24 @@ export const useContentLite = async (options?: IContentLiteOptions) => {
                         const parentPaths = source?.split("/").filter((path) => path.length > 0)
                         parentPaths.pop()
 
-                        const newItem = {
+                        let newItem = {
                             _clId: index,
                             slug: path?.split("/").pop()!,
                             source,
                             path,
                             parentPaths,
-                            data,
                             content: parse(content),
                             modified: new Date(modified),
                         } as IContentLiteItem
 
                         if (globalOptions?.filterable) {
                             newItem.words = makeFilterable(newItem).words
+                        }
+
+                        if (globalOptions?.flattenData) {
+                            Object.assign(newItem, data)
+                        } else {
+                            newItem.data = data
                         }
 
                         return newItem
@@ -141,14 +145,6 @@ export const useContentLite = async (options?: IContentLiteOptions) => {
             return undefined
         }
 
-        if (globalOptions?.filterable || options?.filterable) {
-            item.words = makeFilterable(item).words
-        }
-
-        if (globalOptions?.flattenData || options?.flattenData) {
-            item = Object.assign(item, item.data)
-        }
-
         return item
     }
 
@@ -186,14 +182,6 @@ export const useContentLite = async (options?: IContentLiteOptions) => {
             return !item.source.endsWith("/index.md")
         })
 
-        if (globalOptions?.filterable || options?.filterable) {
-            results = results.map(makeFilterable)
-        }
-
-        if (globalOptions?.flattenData || options?.flattenData) {
-            results = results.map(makeFlat)
-        }
-
         return results
     }
 
@@ -202,12 +190,15 @@ export const useContentLite = async (options?: IContentLiteOptions) => {
         newContentData.forEach((newItem) => {
             const oldItem = contentData.value?.find((item) => item.source === newItem.source)
             if (oldItem) {
-                if (oldItem.words) {
+
+                if (globalOptions?.filterable) {
                     newItem = makeFilterable(newItem)
                 }
-                if (globalOptions?.flattenData || options?.flattenData || !oldItem.data) {
-                    newItem = {...newItem, ...newItem.data}
+
+                if (globalOptions?.flattenData) {
+                    newItem = makeFlat(newItem)
                 }
+
                 Object.assign(oldItem, newItem)
             }
         })
