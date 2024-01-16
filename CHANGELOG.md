@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v1.1.4
+
+[compare changes](https://github.com/l422y/nuxt-content-lite/compare/v1.1.3...v1.1.4)
+
+### 🩹 Fixes
+
+- Fix explicit import of useRoute ([8e39e30](https://github.com/l422y/nuxt-content-lite/commit/8e39e30))
+
+### ❤️ Contributors
+
+- Larry W. ([@L422Y](http://github.com/L422Y))
+
 ## v1.1.3
 
 [compare changes](https://github.com/l422y/nuxt-content-lite/compare/v1.1.2...v1.1.3)
