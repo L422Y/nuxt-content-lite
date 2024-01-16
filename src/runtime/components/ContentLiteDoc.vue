@@ -17,7 +17,7 @@
 <script lang="ts" setup>
 import type { IContentLiteItem } from "~/dist/runtime/types"
 import { useContentLite } from "../composables/useContentLite"
-import { computed, defineComponent, h, ref } from "vue"
+import { watch, computed, defineComponent, h, ref } from "vue"
 import { useRoute } from "#app/composables/router"
 
 const content = await useContentLite({filterable: false})
