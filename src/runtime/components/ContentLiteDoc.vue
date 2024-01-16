@@ -17,6 +17,7 @@
 <script lang="ts" setup>
 import type { IContentLiteItem } from "~/dist/runtime/types"
 import { defineComponent, h, ref } from "vue"
+import { useRoute } from "#app"
 
 const passed = withDefaults(defineProps<{
     item?: IContentLiteItem
