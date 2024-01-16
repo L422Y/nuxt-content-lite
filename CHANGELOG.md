@@ -1,6 +1,19 @@
 # Changelog
 
 
+## v1.2.4
+
+[compare changes](https://github.com/l422y/nuxt-content-lite/compare/v1.2.3...v1.2.4)
+
+### 🩹 Fixes
+
+- Watch contentData only in dev mode ([9b48fb8](https://github.com/l422y/nuxt-content-lite/commit/9b48fb8))
+- Prefer-const ([c74fc63](https://github.com/l422y/nuxt-content-lite/commit/c74fc63))
+
+### ❤️ Contributors
+
+- Larry W. ([@L422Y](http://github.com/L422Y))
+
 ## v1.2.3
 
 [compare changes](https://github.com/l422y/nuxt-content-lite/compare/v1.2.2...v1.2.3)
