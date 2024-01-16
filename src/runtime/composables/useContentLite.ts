@@ -146,9 +146,7 @@ export const useContentLite = async (options?: IContentLiteOptions) => {
         }
 
         if (globalOptions?.flattenData || options?.flattenData) {
-            // item = {...item, ...item.data}
             item = Object.assign(item, item.data)
-            delete item?.data
         }
 
         return item
