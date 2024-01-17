@@ -2,7 +2,7 @@ import { useRoute, useState } from "nuxt/app"
 import type { ContentLiteRawItem, IContentLiteFindOptions, IContentLiteItem, IContentLiteOptions } from "../types"
 import type { Ref } from "vue"
 import { reactive } from "vue"
-import { parse } from "marked"
+import { _Lexer } from "../src/vueMarked/Lexer"
 
 let globalOptions: IContentLiteOptions = {
     filterable: false,
@@ -69,6 +69,7 @@ export const useContentLite = async (options?: IContentLiteOptions) => {
     }
 
     const loadContentData = async () => {
+
         return await $fetch("/.content-lite/content-lite.json")
             .then((data: any) => {
                 if (!data) {
@@ -87,14 +88,14 @@ export const useContentLite = async (options?: IContentLiteOptions) => {
 
                         const parentPaths = source?.split("/").filter((path) => path.length > 0)
                         parentPaths.pop()
-
                         const newItem = {
                             _clId: index,
                             slug: path?.split("/").pop()!,
                             source,
                             path,
                             parentPaths,
-                            content: parse(content),
+                            content: content,
+                            lexedContent: _Lexer.lex(content),
                             modified: new Date(modified),
                         } as IContentLiteItem
 
@@ -137,6 +138,8 @@ export const useContentLite = async (options?: IContentLiteOptions) => {
 
         if (path.endsWith("/")) path = path.slice(0, -1)
         if (!path.startsWith("/")) path = "/" + path
+
+
         const item = [...contentData.value].find((content) => {
             return content.path === path || content.source === path || content.parentPaths.includes(path!)
         })
@@ -148,16 +151,17 @@ export const useContentLite = async (options?: IContentLiteOptions) => {
         return item
     }
 
-    const $route = useRoute()
 
     const routeContent = async (options?: IContentLiteFindOptions):
         Promise<Array<IContentLiteItem & { [key: string]: any }>> => {
+        const $route = useRoute()
         return await find($route.path, options)
     }
 
-    const singleRouteContent = async (options?: IContentLiteFindOptions):
+    const singleRouteContent = async (path?: string):
         Promise<IContentLiteItem & { [key: string]: any } | undefined> => {
-        return await findOne($route.path, options)
+        path = path || useRoute().path
+        return await findOne(path, options)
     }
 
     const find = async (path?: string, options?: IContentLiteFindOptions):

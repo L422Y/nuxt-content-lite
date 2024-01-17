@@ -53,6 +53,7 @@
     "changelogen": "^0.5.5",
     "eslint": "^8.56.0",
     "gray-matter": "^4.0.3",
+    "html-to-vue": "^1.4.0",
     "marked": "^11.1.1",
     "nuxt": "^3.9.0",
     "vitest": "^1.0.0"

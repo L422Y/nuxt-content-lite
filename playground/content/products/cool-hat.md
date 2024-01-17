@@ -18,6 +18,7 @@ This is a very cool hat. It is made of cotton and is very soft. It is made on Ea
 * Human sized
 * Machine washable
 * Made on Earth
+* Only :current-product-price!
 
 ## Technical Details
 

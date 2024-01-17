@@ -87,17 +87,14 @@ export default defineNuxtModule({
                     ]
 
                     if (fileData.body) {
-                        // find any lines that match :<component-name> and add them to the data
-                        const lines = fileData.body.split("\n")
-                        const regex = /^:(?<component>[a-zA-Z0-9-]+)$/
-                        if (!lines.length)
-                            lines.map((line: string) => {
-                                const match = regex.exec(line)
-                                if (match?.groups?.component) {
-                                    contentComponents.push(match.groups?.component)
-                                }
-                            })
-
+                        // find ":component-name" and add them to the data
+                        const componentMatches = fileData.body.match(/:([a-zA-Z0-9-]+)/g)
+                        if (componentMatches) {
+                            for (const match of componentMatches) {
+                                const componentName = match.substr(1)
+                                contentComponents.push(componentName)
+                            }
+                        }
                     }
                     rawContentData.add(fileDataItem)
                 }
