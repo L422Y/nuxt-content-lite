@@ -1,6 +1,26 @@
 # Changelog
 
 
+## v1.4.0
+
+[compare changes](https://github.com/l422y/nuxt-content-lite/compare/v1.3.3...v1.4.0)
+
+### 🚀 Enhancements
+
+- Move from marked to vueMarked ([c67c2a3](https://github.com/l422y/nuxt-content-lite/commit/c67c2a3))
+
+### 🩹 Fixes
+
+- Linting adjustments for vueMarked ([08dff27](https://github.com/l422y/nuxt-content-lite/commit/08dff27))
+
+### 🏡 Chore
+
+- Initial work on new parser ([6f568b0](https://github.com/l422y/nuxt-content-lite/commit/6f568b0))
+
+### ❤️ Contributors
+
+- Larry W. ([@L422Y](http://github.com/L422Y))
+
 ## v1.3.3
 
 [compare changes](https://github.com/l422y/nuxt-content-lite/compare/v1.3.2...v1.3.3)
