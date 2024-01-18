@@ -98,7 +98,7 @@ export class _Parser {
                     }
                     const header = this.renderer.tablerow(cell)
 
-                    let body = []
+                    const body = []
                     for (let j = 0; j < tableToken.rows.length; j++) {
                         const row = tableToken.rows[j]
 
@@ -127,7 +127,7 @@ export class _Parser {
                     const start = listToken.start
                     const loose = listToken.loose
 
-                    let body = []
+                    const body = []
                     for (let j = 0; j < listToken.items.length; j++) {
                         const item = listToken.items[j]
                         // TODO: Fix tasklists
@@ -184,9 +184,8 @@ export class _Parser {
                     if (componentToken.name) {
                         // out.push(resolveComponent(componentToken.name) || componentToken.name)
                         out.push(this.renderer.component(componentToken.name, componentToken.props, componentToken.tokens))
-                        continue
-
                     }
+                    continue
                 }
 
                 default: {
@@ -209,7 +208,7 @@ export class _Parser {
      */
     parseInline(tokens: Token[], renderer?: _Renderer): ( VNode | string )[] {
         renderer = renderer || this.renderer
-        let out = []
+        const out = []
 
         for (let i = 0; i < tokens.length; i++) {
             const token = tokens[i]

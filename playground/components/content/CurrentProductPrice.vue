@@ -1,6 +1,6 @@
 <template>
   <span>
-    ${{useState("currentProductPrice", () => 0)}}
+    ${{ useState("currentProductPrice", () => 0) }}
   </span>
 </template>
 <style scoped>

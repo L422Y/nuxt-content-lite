@@ -1,4 +1,10 @@
 {
   "root": true,
-  "extends": ["@nuxt/eslint-config"]
+  "extends": ["@nuxt/eslint-config"],
+  "rules": {
+    "no-useless-escape": "off",
+    "no-cond-assign": "off",
+    "@typescript-eslint/no-unused-vars": "off",
+    "no-control-regex": "off"
+  }
 }
