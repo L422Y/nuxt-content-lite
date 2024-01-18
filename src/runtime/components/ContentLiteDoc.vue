@@ -1,28 +1,14 @@
 <template>
-  <div>
-    <template
-      v-for="c in elements"
-      :key="c.type + idx"
-    >
-      <component
-        :is="makeComponent(c)"
-        v-if="c.type === 'html'"
-      />
-      <template v-if="c.type === 'component'">
-        <component :is="c.component" />
-      </template>
-    </template>
-  </div>
+  <component :is="contentVNode" v-if="contentVNode"/>
 </template>
 <script lang="ts" setup>
 import type { IContentLiteItem } from "../types"
+import { _Parser } from "../src/vueMarked/Parser"
 import { useContentLite } from "../composables/useContentLite"
-import { watch, computed, defineComponent, h, ref } from "vue"
-import { useRoute } from "#app"
+import { computed, h, ref, watch } from "vue"
+
 
 const content = await useContentLite({filterable: false})
-const $route = useRoute()
-
 const passed = withDefaults(defineProps<{
     item?: IContentLiteItem
 }>(), {
@@ -31,65 +17,25 @@ const passed = withDefaults(defineProps<{
 
 const actualItem = ref(passed.item)
 
-const idx = {
-    get() {
-        return new Date().getTime()
-    }
-}
-
 if (!passed.item) {
     if (process.dev) {
         watch(() => content.contentData.value, async () => {
-            actualItem.value = await content.singleRouteContent()
+            actualItem.value = await content.singleRouteContent(useRoute().path)
         }, {
             immediate: true,
             deep: true
         })
     } else {
-        actualItem.value = await content.singleRouteContent()
+        actualItem.value = await content.singleRouteContent(useRoute().path)
     }
 }
-
-
-const elements = computed(() => {
-    if (actualItem.value?.content) {
-        return actualItem.value.content
-            .split(/<p>(:[-a-zA-Z0-9]+)<\/p>/g)
-            .map((c: any) => {
-                const match = c.match(/^:([-a-zA-Z0-9]+)$/)
-                if (match) {
-                    return {
-                        type: "component",
-                        component: match[1]
-                    }
-                } else {
-                    return {
-                        type: "html",
-                        content: c
-                    }
-                }
-            })
-    } else {
-        return [{
-            type: "html",
-            content: "Content not found for `" + $route.path + "`"
-        }]
+const contentVNode = computed(() => {
+    if (actualItem.value) {
+        const lexed = actualItem.value.lexedContent
+        return () => h("div", {class: "content-lite-doc"},  _Parser.parse(lexed))
     }
+    return undefined
 })
 
-const makeComponent = (c: any) => {
-    return defineComponent({
-        props: {
-            content: {
-                type: String,
-                default: c.content
-            }
-        },
-        render() {
-            return h("div", {
-                innerHTML: c.content
-            })
-        }
-    })
-}
+
 </script>

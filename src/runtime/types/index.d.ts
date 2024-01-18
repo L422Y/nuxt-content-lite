@@ -18,6 +18,8 @@ export interface IContentLiteItem {
     parentPaths: string[]
     data: any
     content: string
+    lexedContent: any
+    nodes: any
     modified: Date
     words?: Map<string, number>
 }
