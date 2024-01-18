@@ -1,7 +1,7 @@
 import { _Tokenizer } from "./Tokenizer"
 import { _defaults } from "./defaults"
 import { block, inline } from "./rules"
-import type { Token, TokensList, Tokens } from "./Tokens.ts"
+import type { Token, Tokens, TokensList } from "./Tokens.ts"
 import type { MarkedOptions, TokenizerExtension } from "./MarkedOptions.ts"
 
 /**
@@ -86,6 +86,7 @@ export class _Lexer {
     lex(src: string) {
         src = src
             .replace(/\r\n|\r/g, "\n")
+        // .replace(/\n/g, "\n")
 
         this.blockTokens(src, this.tokens)
 
@@ -250,7 +251,7 @@ export class _Lexer {
                 }
             }
 
-            if(token = this.tokenizer.component(src)) {
+            if (( token = this.tokenizer.component(cutSrc) )) {
                 src = src.substring(token.raw.length)
                 tokens.push(token)
                 continue
@@ -459,6 +460,14 @@ export class _Lexer {
                     cutSrc = src.substring(0, startIndex + 1)
                 }
             }
+
+            if (token = this.tokenizer.inlineComponent(cutSrc)) {
+                src = src.substring(0,token.index)
+                tokens.push(token)
+                continue
+            }
+            cutSrc = src
+
             if (token = this.tokenizer.inlineText(cutSrc)) {
                 src = src.substring(token.raw.length)
                 if (token.raw.slice(-1) !== "_") { // Track prevChar before string of ____ started

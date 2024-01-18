@@ -8,8 +8,7 @@
 }
 ---
 
-This is a very cool shirt. It is made of cotton and is very soft. It is made on Earth. I've been wearing it for a while,
-and it is still very cool. You get a lot of compliments when you wear it. The current price is ::current-product-price
+This is a very cool shirt. It is made of cotton and is very soft. It is made on Earth. I've been wearing it for a while,  and it is still very cool. You get a lot of compliments when you wear it. The current price is ::current-product-price
 
 ## Some links
 

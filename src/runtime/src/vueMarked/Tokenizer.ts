@@ -797,11 +797,24 @@ export class _Tokenizer {
         }
     }
 
-    component(src: string): Tokens.Component | undefined {
+    inlineComponent(src: string): Tokens.Component | undefined {
         const cap = this.rules.inline.component.exec(src);
         if (cap) {
-            console.log("cap", cap)
+            // console.log("inlineComponent", cap.index)
+            return {
+                type: 'component',
+                index: cap.index,
+                raw: cap[0],
+                name: cap[1],
+                props: {}, // TODO: parse props
+                tokens: [] // TODO: parse children
+            };
+        }
+    }
 
+    component(src: string): Tokens.Component | undefined {
+        const cap = this.rules.block.component.exec(src);
+        if (cap) {
             return {
                 type: 'component',
                 raw: cap[0],

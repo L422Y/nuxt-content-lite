@@ -1,5 +1,5 @@
 <template>
-  <component :is="contentVNode"/>
+  <component :is="contentVNode" v-if="contentVNode"/>
 </template>
 <script lang="ts" setup>
 import type { IContentLiteItem } from "../types"
@@ -29,14 +29,12 @@ if (!passed.item) {
         actualItem.value = await content.singleRouteContent(useRoute().path)
     }
 }
-
 const contentVNode = computed(() => {
     if (actualItem.value) {
         const lexed = actualItem.value.lexedContent
-        return h("div", {class: "content-lite-doc"}, _Parser.parse(lexed))
-    } else {
-        console.error("missing lexed content", actualItem.value)
+        return () => h("div", {class: "content-lite-doc"},  _Parser.parse(lexed))
     }
+    return undefined
 })
 
 

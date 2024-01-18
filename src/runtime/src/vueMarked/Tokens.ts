@@ -116,6 +116,7 @@ export namespace Tokens {
     export interface Component {
         type: "component";
         raw: string;
+        index: number;
         props: Record<string, any>;
         name: string;
         tokens?: Token[];

@@ -1,5 +1,5 @@
  # Products
  
-:products-list
+::products-list
 
 ...

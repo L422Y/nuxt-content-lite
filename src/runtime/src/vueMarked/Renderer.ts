@@ -1,7 +1,7 @@
 import { _defaults } from "./defaults"
 import { cleanUrl, escape } from "./helpers"
 import type { MarkedOptions } from "./MarkedOptions.ts"
-import type { VNode } from "vue"
+import { type VNode } from "vue"
 
 /**
  * Renderer
@@ -79,8 +79,26 @@ export class _Renderer {
         return h("input", props)
     }
 
+    unescape(text: string): string {
+        // emulate unescape unicodes -- &#39;
+        return text.replace(/&amp;/g, "&").replace(/&quot;/g, '"').replace(/&#39;/g, "'")
+
+    }
+
+    unescapeChildren(children: Array<VNode | string>): Array<VNode | string> {
+        return children.map((child) => {
+            if (typeof child === "string") {
+                return this.unescape(child)
+            }
+            return child
+        })
+    }
+
     paragraph(text: Array<string | VNode>): VNode {
-        return h("p", {}, text)
+
+
+
+        return h("p", {}, this.unescapeChildren(text))
     }
 
     table(header: VNode, body: VNode[]): VNode {
@@ -147,6 +165,7 @@ export class _Renderer {
     }
 
     component(name: string, props: any, children: any): VNode {
-        return h(resolveComponent(name), props, children)
+        const component = resolveComponent(name)
+        return h(component, props, () => children)
     }
 }

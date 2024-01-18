@@ -121,15 +121,15 @@ export class _Parser {
                     out.push(this.renderer.blockquote(body))
                     continue
                 }
-                case 'list': {
-                    const listToken = token as Tokens.List;
-                    const ordered = listToken.ordered;
-                    const start = listToken.start;
-                    const loose = listToken.loose;
+                case "list": {
+                    const listToken = token as Tokens.List
+                    const ordered = listToken.ordered
+                    const start = listToken.start
+                    const loose = listToken.loose
 
-                    let body = [];
+                    let body = []
                     for (let j = 0; j < listToken.items.length; j++) {
-                        const item = listToken.items[j];
+                        const item = listToken.items[j]
                         // TODO: Fix tasklists
                         // const checked = item.checked;
                         // const task = item.task;
@@ -156,11 +156,11 @@ export class _Parser {
                         // itemBody.push(this.parseInline(item.tokens));
                         // body.push(this.renderer.listitem(itemBody, task, !!checked));
                         const childNodes = this.parseInline(item.tokens)
-                        body.push(this.renderer.listitem(childNodes));
+                        body.push(this.renderer.listitem(childNodes))
                     }
 
-                    out.push(this.renderer.list(body, ordered, start));
-                    continue;
+                    out.push(this.renderer.list(body, ordered, start))
+                    continue
                 }
                 case "html": {
                     const htmlToken = token as Tokens.HTML
@@ -181,8 +181,12 @@ export class _Parser {
 
                 case "component": {
                     const componentToken = token as Tokens.Component
-                    out.push(this.renderer.component(componentToken.name, componentToken.props, componentToken.tokens))
-                    continue
+                    if (componentToken.name) {
+                        // out.push(resolveComponent(componentToken.name) || componentToken.name)
+                        out.push(this.renderer.component(componentToken.name, componentToken.props, componentToken.tokens))
+                        continue
+
+                    }
                 }
 
                 default: {
@@ -273,13 +277,25 @@ export class _Parser {
                 case "text": {
                     const textToken = token as Tokens.Text
                     // out.push(renderer.text(this.parseInline(textToken.text, renderer)))
-                    if(textToken.tokens && textToken.tokens.length > 0) {
+                    if (textToken.tokens && textToken.tokens.length > 0) {
                         out.push(renderer.text(this.parseInline(textToken.tokens, renderer)))
                     } else {
                         out.push(textToken.text)
                     }
                     break
                 }
+
+                case "component": {
+                    const componentToken = token as Tokens.Component
+                    if (componentToken.name) {
+                        // out.push(resolveComponent(componentToken.name) || componentToken.name)
+                        // out.push(renderer.component(componentToken.name, componentToken.props, componentToken.tokens))
+
+                    }
+                    continue
+
+                }
+
                 default: {
                     const errMsg = "Token with \"" + token.type + "\" type was not found."
                     if (this.options.silent) {
