@@ -1,7 +1,7 @@
 import { _defaults } from "./defaults"
 import { cleanUrl, escape } from "./helpers"
 import type { MarkedOptions } from "./MarkedOptions.ts"
-import { type VNode } from "vue"
+import { resolveComponent, h, type VNode } from "vue"
 
 /**
  * Renderer
@@ -81,7 +81,7 @@ export class _Renderer {
 
     unescape(text: string): string {
         // emulate unescape unicodes -- &#39;
-        return text.replace(/&amp;/g, "&").replace(/&quot;/g, '"').replace(/&#39;/g, "'")
+        return text.replace(/&amp;/g, "&").replace(/&quot;/g, "\"").replace(/&#39;/g, "'")
 
     }
 
@@ -95,7 +95,6 @@ export class _Renderer {
     }
 
     paragraph(text: Array<string | VNode>): VNode {
-
 
 
         return h("p", {}, this.unescapeChildren(text))
