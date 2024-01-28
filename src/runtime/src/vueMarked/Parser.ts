@@ -264,6 +264,13 @@ export class _Parser {
                     out.push(renderer.codespan([codespanToken.text]))
                     break
                 }
+
+                case "code": {
+                    const codespanToken = token as Tokens.Codespan
+                    out.push(renderer.codespan([codespanToken.text]))
+                    break
+                }
+
                 case "br": {
                     out.push(renderer.br())
                     break
@@ -295,14 +302,20 @@ export class _Parser {
 
                 }
 
+
+
                 default: {
-                    const errMsg = "Token with \"" + token.type + "\" type was not found."
-                    if (this.options.silent) {
-                        console.error(errMsg)
-                        return [errMsg]
-                    } else {
-                        throw new Error(errMsg)
-                    }
+                    // const errMsg = "Token with \"" + token.type + "\" type was not found."
+                    // if (this.options.silent) {
+                    //     console.error(errMsg)
+                    //     return [errMsg]
+                    // } else {
+                    //     throw new Error(errMsg)
+                    // }
+                    console.error("Token with \"" + token.type + "\" type was not found.")
+
+                    break
+
                 }
             }
         }

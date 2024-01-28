@@ -9,7 +9,7 @@ import type { IContentLiteItem } from "../types"
 import { _Parser } from "../src/vueMarked/Parser"
 import { useContentLite } from "../composables/useContentLite"
 import { computed, h, ref, watch } from "vue"
-
+import { useRoute } from "nuxt/app"
 
 const content = await useContentLite({filterable: false})
 const passed = withDefaults(defineProps<{
@@ -36,6 +36,8 @@ const contentVNode = computed(() => {
     if (actualItem.value) {
         const lexed = actualItem.value.lexedContent
         return () => h("div", {class: "content-lite-doc"}, _Parser.parse(lexed))
+    } else {
+        console.log("no item", actualItem.value, useRoute().path)
     }
     return undefined
 })

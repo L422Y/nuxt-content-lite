@@ -52,6 +52,12 @@ export default defineNuxtModule({
             }
 
             const contentDirPath = path.resolve(".", currentPath)
+            const dirStat = await fs.promises.stat(contentDirPath).catch(() => null)
+            if (!dirStat || !dirStat.isDirectory()) {
+                console.warn(`Content directory ${contentDirPath} does not exist`)
+                return
+            }
+
             const contentFiles = fs.readdirSync(contentDirPath)
 
 
