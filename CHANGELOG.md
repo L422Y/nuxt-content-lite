@@ -1,6 +1,22 @@
 # Changelog
 
 
+## v1.4.2
+
+[compare changes](https://github.com/l422y/nuxt-content-lite/compare/v1.4.0...v1.4.2)
+
+### 🩹 Fixes
+
+- Watch instead of computed for implementing vnodes ([803336d](https://github.com/l422y/nuxt-content-lite/commit/803336d))
+
+### 🏡 Chore
+
+- **release:** V1.4.1 ([4ff6f8a](https://github.com/l422y/nuxt-content-lite/commit/4ff6f8a))
+
+### ❤️ Contributors
+
+- Larry W. ([@L422Y](http://github.com/L422Y))
+
 ## v1.4.1
 
 [compare changes](https://github.com/l422y/nuxt-content-lite/compare/v1.4.0...v1.4.1)
