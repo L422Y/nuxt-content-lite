@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v1.4.1
+
+[compare changes](https://github.com/l422y/nuxt-content-lite/compare/v1.4.0...v1.4.1)
+
+### 🩹 Fixes
+
+- Handle code token, refactor error handling in Parser.ts ([7f5259e](https://github.com/l422y/nuxt-content-lite/commit/7f5259e))
+
+### ❤️ Contributors
+
+- Larry W. ([@L422Y](http://github.com/L422Y))
+
 ## v1.4.0
 
 [compare changes](https://github.com/l422y/nuxt-content-lite/compare/v1.3.3...v1.4.0)
