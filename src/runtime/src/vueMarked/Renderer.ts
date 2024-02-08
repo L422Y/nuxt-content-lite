@@ -80,9 +80,49 @@ export class _Renderer {
     }
 
     unescape(text: string): string {
-        // emulate unescape unicodes -- &#39;
-        return text.replace(/&amp;/g, "&").replace(/&quot;/g, "\"").replace(/&#39;/g, "'")
-
+        const entities: { [key: string]: string } = {
+            "&amp;": "&",
+            "&quot;": "\"",
+            "&#39;": "'",
+            "&#x3A;": ":",
+            "&lt;": "<",
+            "&gt;": ">",
+            "&nbsp;": " ",
+            "&iexcl;": "¡",
+            "&cent;": "¢",
+            "&pound;": "£",
+            "&curren;": "¤",
+            "&yen;": "¥",
+            "&brvbar;": "¦",
+            "&sect;": "§",
+            "&uml;": "¨",
+            "&copy;": "©",
+            "&ordf;": "ª",
+            "&laquo;": "«",
+            "&not;": "¬",
+            "&shy;": "\u00AD", // Soft hyphen
+            "&reg;": "®",
+            "&macr;": "¯",
+            "&deg;": "°",
+            "&plusmn;": "±",
+            "&sup2;": "²",
+            "&sup3;": "³",
+            "&acute;": "´",
+            "&micro;": "µ",
+            "&para;": "¶",
+            "&middot;": "·",
+            "&cedil;": "¸",
+            "&sup1;": "¹",
+            "&ordm;": "º",
+            "&raquo;": "»",
+            "&frac14;": "¼",
+            "&frac12;": "½",
+            "&frac34;": "¾",
+            "&iquest;": "¿",
+            "&Agrave;": "À",
+            "&Aacute;": "Á",
+        }
+        return text.replace(/&[#a-zA-Z0-9]+;/g, (match: string) => entities[match] || match)
     }
 
     unescapeChildren(children: Array<VNode | string>): Array<VNode | string> {
@@ -121,11 +161,11 @@ export class _Renderer {
      * span level renderer
      */
     strong(childNodes: Array<VNode | string>): VNode {
-        return h("strong", {}, childNodes)
+        return h("strong", {},  this.unescapeChildren(childNodes))
     }
 
     em(text: any[]): VNode {
-        return h("em", {}, text)
+        return h("em", {}, this.unescapeChildren(text))
     }
 
     codespan(childNodes: Array<VNode | string>): VNode {
@@ -137,17 +177,17 @@ export class _Renderer {
     }
 
     del(text: any[]): VNode {
-        return h("del", {}, text)
+        return h("del", {}, this.unescapeChildren(text))
     }
 
     link(href: string, title: string | null | undefined, childNodes: Array<VNode | string>): VNode {
 
         const cleanHref = cleanUrl(href)
         if (cleanHref === null) {
-            return h("a", {}, childNodes)
+            return h("a", {}, this.unescapeChildren(childNodes))
         }
         href = cleanHref
-        return h("a", {href: href, title: title}, childNodes)
+        return h("a", {href: href, title: title},  this.unescapeChildren(childNodes))
     }
 
     image(href: string, title: string | null, text: string): VNode {
