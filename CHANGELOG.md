@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v1.4.4
+
+[compare changes](https://github.com/l422y/nuxt-content-lite/compare/v1.4.3...v1.4.4)
+
+### 🏡 Chore
+
+- Expand unescape function and apply to childNodes in Renderer.ts ([f23402e](https://github.com/l422y/nuxt-content-lite/commit/f23402e))
+
+### ❤️ Contributors
+
+- Larry W. ([@L422Y](http://github.com/L422Y))
+
 ## v1.4.3
 
 [compare changes](https://github.com/l422y/nuxt-content-lite/compare/v1.4.2...v1.4.3)
