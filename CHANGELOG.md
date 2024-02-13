@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v1.4.6
+
+[compare changes](https://github.com/l422y/nuxt-content-lite/compare/v1.4.5...v1.4.6)
+
+### 🏡 Chore
+
+- Improve recursive text handling ([25714b3](https://github.com/l422y/nuxt-content-lite/commit/25714b3))
+
+### ❤️ Contributors
+
+- Larry W. ([@L422Y](http://github.com/L422Y))
+
 ## v1.4.5
 
 [compare changes](https://github.com/l422y/nuxt-content-lite/compare/v1.4.4...v1.4.5)
