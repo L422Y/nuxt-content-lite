@@ -34,7 +34,7 @@ export class _Renderer {
     }
 
     blockquote(quote: Array<string | VNode>): VNode {
-        return h("blockquote", {}, quote)
+        return h("blockquote", {}, this.unescapeChildren(quote))
     }
 
     html(html: string, block?: boolean): VNode {
@@ -43,7 +43,7 @@ export class _Renderer {
 
     heading(children: Array<VNode | string>, level: number): VNode {
         // ignore IDs
-        return h("h" + level, {}, children)
+        return h("h" + level, {}, this.unescapeChildren(children))
     }
 
     hr(): VNode {
@@ -53,12 +53,12 @@ export class _Renderer {
     list(body: ( VNode | string )[], ordered: boolean, start: number | ""): VNode {
         const type = ordered ? "ol" : "ul"
         const startatt = ordered && start !== 1 ? {start: start} : {}
-        return h(type, startatt, body)
+        return h(type, startatt, this.unescapeChildren(body))
     }
 
 
     listitem(childNodes: ( VNode | string )[]): VNode {
-        return h("li", {}, childNodes)
+        return h("li", {}, this.unescapeChildren(childNodes))
     }
 
     checkbox(checked: boolean): VNode {
