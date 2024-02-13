@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v1.4.5
+
+[compare changes](https://github.com/l422y/nuxt-content-lite/compare/v1.4.4...v1.4.5)
+
+### 🏡 Chore
+
+- Update Renderer class to unescape children in blockquote, heading, list, and listitem methods ([d6f9d4e](https://github.com/l422y/nuxt-content-lite/commit/d6f9d4e))
+
+### ❤️ Contributors
+
+- Larry W. ([@L422Y](http://github.com/L422Y))
+
 ## v1.4.4
 
 [compare changes](https://github.com/l422y/nuxt-content-lite/compare/v1.4.3...v1.4.4)
