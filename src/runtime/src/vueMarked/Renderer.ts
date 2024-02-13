@@ -125,18 +125,20 @@ export class _Renderer {
         return text.replace(/&[#a-zA-Z0-9]+;/g, (match: string) => entities[match] || match)
     }
 
-    unescapeChildren(children: Array<VNode | string>): Array<VNode | string> {
+    unescapeChildren(children: Array<VNode | string | any>): Array<VNode | string | any> {
         return children.map((child) => {
             if (typeof child === "string") {
                 return this.unescape(child)
+            } else if (child.children && Array.isArray(child.children)) {
+                child.children = this.unescapeChildren(child.children)
+            } else if (child.length && Array.isArray(child)) {
+                child = this.unescapeChildren(child)
             }
             return child
         })
     }
 
     paragraph(text: Array<string | VNode>): VNode {
-
-
         return h("p", {}, this.unescapeChildren(text))
     }
 
