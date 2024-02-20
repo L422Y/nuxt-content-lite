@@ -10,6 +10,7 @@ import fs from "fs"
 import path from "path"
 import type { ContentLiteRawItem } from "~/dist/runtime/types"
 import type { WebSocketClient } from "vite"
+import { prefixStorage, type Storage } from "unstorage"
 
 export default defineNuxtModule({
     meta: {
@@ -24,12 +25,18 @@ export default defineNuxtModule({
     },
     hooks: {},
     async setup(moduleOptions, nuxt) {
+
+        const contentStorage = {
+            port: 0,
+            content: "[]"
+        }
         const moduleResolver = createResolver(import.meta.url)
         const rawContentData = new Set<ContentLiteRawItem>()
         const contentComponents = [] as string[]
+        const { resolve, resolvePath } = moduleResolver
 
-        const contentLiteDir = path.resolve(".", ".cache/content-lite")
-        const jsonPath = path.resolve(contentLiteDir, "content-lite.json")
+        // const contentLiteDir = path.resolve(".", ".cache/content-lite")
+        // const jsonPath = path.resolve(contentLiteDir, "content-lite.json")
 
 
         await addComponentsDir({
@@ -42,6 +49,7 @@ export default defineNuxtModule({
             route: "/.content-lite/content-lite.json",
             handler: moduleResolver.resolve("./runtime/endpoint.get")
         })
+
 
         const populateContent = async (currentPath: string = moduleOptions.contentDir, baseDir?: string) => {
             const path = require("path")
@@ -145,8 +153,9 @@ export default defineNuxtModule({
 
         await loadLayersContent()
 
-        fs.mkdirSync(path.dirname(jsonPath), {recursive: true})
-        fs.writeFileSync(jsonPath, JSON.stringify([...rawContentData]))
+        // fs.mkdirSync(path.dirname(jsonPath), {recursive: true})
+        // fs.writeFileSync(jsonPath, JSON.stringify([...rawContentData]))
+        contentStorage.content = JSON.stringify([...rawContentData])
 
         // watch for changes to content files during development and rebuild the content-lite.json file
         if (nuxt.options.dev) {
@@ -161,8 +170,11 @@ export default defineNuxtModule({
             const wss = new websocketServer({port})
 
             // write the port to a file so the plugin can connect
-            const portPath = path.resolve(contentLiteDir, "port")
-            fs.writeFileSync(portPath, port.toString())
+            // const portPath = path.resolve(contentLiteDir, "port")
+            // fs.writeFileSync(portPath, port.toString())
+            contentStorage.port = port
+
+
 
             const chokidar = require("chokidar")
             const watcher = chokidar.watch(path.resolve(".", moduleOptions.contentDir), {
@@ -187,7 +199,8 @@ export default defineNuxtModule({
                 item[2] = fileData.data
                 item[3] = fileData.body
 
-                await fs.promises.writeFile(jsonPath, JSON.stringify([...rawContentData]))
+                // await fs.promises.writeFile(jsonPath, JSON.stringify([...rawContentData]))
+                contentStorage.content = JSON.stringify([...rawContentData])
 
                 wss.clients.forEach((client: WebSocketClient) => {
                     client.send("content-updated")
@@ -196,6 +209,17 @@ export default defineNuxtModule({
 
             addPlugin({
                 src: moduleResolver.resolve("./runtime/dev-plugin.client")
+            })
+
+            nuxt.hook('nitro:config', (nitroConfig) => {
+                nitroConfig.devStorage = {}
+                nitroConfig.devStorage['cache:content-lite'] = {
+                    driver: 'fs',
+                    base: resolve(nuxt.options.buildDir, 'content-lite-cache')
+                }
+
+                nitroConfig.bundledStorage = nitroConfig.bundledStorage || []
+                nitroConfig.bundledStorage.push('/cache/content-lite')
             })
         }
     }
